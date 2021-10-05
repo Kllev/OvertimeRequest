@@ -28,7 +28,7 @@ namespace Overtime.ViewModel
         [Required]
         public string Email { get; set; }
         [Required]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)\S{6,20}$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
         //[StringLength(32, ErrorMessage = "Must be between 5 and 32 characters", MinimumLength = 6)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
