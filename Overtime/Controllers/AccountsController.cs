@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using NETCore.Repository.StaticMethod;
 using Overtime.Base;
 using Overtime.Context;
@@ -9,8 +10,11 @@ using Overtime.Repository.Data;
 using Overtime.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Overtime.Controllers
@@ -22,6 +26,7 @@ namespace Overtime.Controllers
         private readonly AccountRepository repository;
         public IConfiguration _configuration;
         private readonly MyContext myContext;
+        Role role = new Role();
 
         public AccountsController(AccountRepository repository, IConfiguration configuration, MyContext myContext) : base(repository)
         {
@@ -86,11 +91,39 @@ namespace Overtime.Controllers
                 //        message = "Login Success !"
                 //    });
                 //}
-                return StatusCode((int)HttpStatusCode.OK, new
-                {
-                    status = (int)HttpStatusCode.OK,
-                    message = "Success Login",
-                });
+                //return StatusCode((int)HttpStatusCode.OK, new
+                //{
+                //    status = (int)HttpStatusCode.OK,
+                //    message = "Success Login",
+                //});
+                else
+                {   
+                    string[] roles = repository.Roles(login.Email);
+                    var claim = new List<Claim>();
+                    claim.Add(new Claim("email", login.Email));
+                    foreach (string d in roles)
+                    {
+                        claim.Add(new Claim("roles", d));
+                    }
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+
+                    var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+                    var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claim, expires: DateTime.UtcNow.AddDays(1), signingCredentials: signIn);
+
+                    return Ok(new
+                    {
+                        token = new JwtSecurityTokenHandler().WriteToken(token),
+                        status = HttpStatusCode.OK,
+                        message = "Login Success !"
+                    });
+                    //return Ok(new JWTokenVM { Token = new JwtSecurityTokenHandler().WriteToken(token), Messages = "Login Berhasil" });
+                    //return Ok(new
+                    //{
+                    //    status = HttpStatusCode.OK,
+                    //    message = "Login Berhasil"
+                    //});
+                }
 
             }
             catch (System.Exception e)
