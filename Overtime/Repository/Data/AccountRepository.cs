@@ -1,5 +1,7 @@
-﻿using Overtime.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Overtime.Context;
 using Overtime.Models;
+using Overtime.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +11,74 @@ namespace Overtime.Repository.Data
 {
     public class AccountRepository : GeneralRepository<MyContext, Account, string>
     {
+        private readonly MyContext myContext;
+        private readonly DbSet<Account> dbSet;
+
         public AccountRepository(MyContext myContext) : base(myContext)
         {
+            this.myContext = myContext;
+            this.dbSet = myContext.Set<Account>();
+        }
+        public IEnumerable<LoginVM> GetLoginVMs()
+        {
+            var getLoginVMs = (from u in myContext.Users
+                               join a in myContext.Accounts on
+                               u.Id equals a.Id
+                               select new LoginVM
+                               {
+                                   Email = u.Email,
+                                   Password = a.Password
+                               }).ToList();
+            if (getLoginVMs.Count == 0)
+            {
+                return null;
+            }
+            return getLoginVMs.ToList();
+        }
+        public LoginVM Login(LoginVM login)
+        {
+            if (myContext.Users.Where(u => u.Email == login.Email).Count() <= 0)
+            {
+                return null;
+            }
+            return (from u in myContext.Users
+                    join a in myContext.Accounts
+                    on u.Id equals a.Id
+                    select new LoginVM
+                    {
+                        Email = u.Email,
+                        Password = a.Password,
+                    }
+         ).Where(user => user.Email == login.Email).First();
+        }
+        public LoginVM FindByEmail(string email)
+        {
+            var data = myContext.Users.Where(u => u.Email == email);
+            if (data.Count() > 0)
+            {
+                return (from u in myContext.Users
+                        join a in myContext.Accounts on
+                        u.Id equals a.Id
+                        select new LoginVM
+                        {
+                            Email = u.Email,
+                            Password = a.Password
+                        }).Where(u => u.Email == email).First();
+            }
 
+            return null;
+        }
+        public bool ResetPassword(string Id, string newPassword)
+        {
+            //reset password
+            dbSet.Update(new Account()
+            {
+                Id = Id,
+                Password = BCrypt.Net.BCrypt.HashPassword(newPassword, BCrypt.Net.BCrypt.GenerateSalt(12))
+            });
+            myContext.SaveChanges();
+
+            return true;
         }
     }
 }
