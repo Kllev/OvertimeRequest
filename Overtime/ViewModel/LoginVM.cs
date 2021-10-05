@@ -14,6 +14,6 @@ namespace Overtime.ViewModel
         [Required]
         public string Password { get; set; }
         public string Id { get; set; }
-        public string NewPassword { get; internal set; }
+        public string NewPassword { get; set; }
     }
 }
