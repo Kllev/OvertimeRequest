@@ -17,6 +17,7 @@ namespace Overtime.Models
         public Status StatusName { get; set; }
         public DateTime RequuestDate { get; set; }
         public string ApproverName { get; set; }
+        public string ApproverName2 { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal SalaryOvertime { get; set; }
         public virtual ICollection<UserRequest> UserRequests { get; set; }
