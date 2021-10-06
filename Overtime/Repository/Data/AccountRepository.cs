@@ -26,6 +26,7 @@ namespace Overtime.Repository.Data
                                u.Id equals a.Id
                                select new LoginVM
                                {
+                                   Id = u.Id,
                                    Email = u.Email,
                                    Password = a.Password
                                }).ToList();
@@ -79,6 +80,7 @@ namespace Overtime.Repository.Data
                         u.Id equals a.Id
                         select new LoginVM
                         {
+                            Id=u.Id,
                             Email = u.Email,
                             Password = a.Password
                         }).Where(u => u.Email == email).First();
@@ -97,6 +99,24 @@ namespace Overtime.Repository.Data
             myContext.SaveChanges();
 
             return true;
+        }
+        public string[] Roles(string email)
+        {
+            var all = (from p in myContext.Users
+                       join a in myContext.Accounts on p.Id equals a.Id
+                       join b in myContext.AccountRoles on a.Id equals b.AccountId
+                       join c in myContext.Roles on b.RoleId equals c.Id
+                       where p.Email == email
+                       select new Role
+                       {
+                           Name = c.Name
+                       }).ToList();
+            string[] roles = new string[all.Count];
+            for (int i = 0; i < all.Count; i++)
+            {
+                roles[i] = all[i].Name;
+            }
+            return roles;
         }
     }
 }
