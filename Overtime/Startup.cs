@@ -56,8 +56,9 @@ namespace Overtime
             services.AddScoped<RequestRepository>();
             services.AddScoped<DepartmentRepository>();
             services.AddScoped<DivisionRepository>();
-            services.AddDbContext<MyContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("OvertimeContext")));
+            services.AddDbContext<MyContext>(options => 
+                options.UseLazyLoadingProxies().
+                UseSqlServer(Configuration.GetConnectionString("OvertimeContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
