@@ -11,6 +11,7 @@ namespace Overtime.Repository.Data
     {
         public UserRequestRepository(MyContext myContext) : base(myContext)
         {
+
         }
     }
 }
