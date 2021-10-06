@@ -15,7 +15,7 @@ namespace Overtime.Models
             Decline
         }
         public Status StatusName { get; set; }
-        public DateTime RequuestDate { get; set; }
+        public DateTime RequestDate { get; set; }
         public string ApproverName { get; set; }
         public string ApproverName2 { get; set; }
         [Column(TypeName = "decimal(18,2)")]
