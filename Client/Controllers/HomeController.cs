@@ -1,10 +1,6 @@
 ﻿using Client.Models;
-using Client.Repository.Data;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Overtime.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,8 +11,6 @@ namespace Client.Controllers
 {
     public class HomeController : Controller
     {
-        LoginRepository loginRepository;
-        private object jwtHandler;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -24,33 +18,20 @@ namespace Client.Controllers
             _logger = logger;
         }
 
-        [HttpPost("Auth/")]
-        public async Task<IActionResult> Auth(string email, string password)
+        public IActionResult Index()
         {
-            LoginVM loginVM = new LoginVM();
-            loginVM.Email = email;
-            loginVM.Password = password;
-            var jwtToken = await loginRepository.Auth(loginVM);
-            var token = jwtToken.Token;
-
-            if (token == null)
-            {
-                return RedirectToAction("Login");
-            }
-
-            HttpContext.Session.SetString("JWToken", token);
-            //HttpContext.Session.SetString("Name", jwtHandler.GetName(token));
-            //HttpContext.Session.SetString("ProfilePicture", "assets/img/theme/user.png");
-
-            return RedirectToAction("Index", "ClientApi");
+            return View();
         }
 
-        [Authorize]
-        [HttpGet("Logout/")]
-        public IActionResult Logout()
+        public IActionResult Privacy()
         {
-            HttpContext.Session.Clear();
-            return RedirectToAction("Index");
+            return View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

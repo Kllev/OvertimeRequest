@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Client.Repository.Interface
+namespace Client.Repositories.Interface
 {
     public interface IRepository<T, X> where T : class
     {

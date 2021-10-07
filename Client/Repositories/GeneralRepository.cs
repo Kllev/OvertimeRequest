@@ -1,5 +1,5 @@
-﻿using Client.Base.Urls;
-using Client.Repository.Interface;
+﻿using Client.Base.Address;
+using Client.Repositories.Interface;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,24 +9,28 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client.Repository
+namespace Client.Repositories
 {
     public class GeneralRepository<TEntity, TId> : IRepository<TEntity, TId>
         where TEntity : class
     {
         private readonly Address address;
         private readonly string request;
-        //private readonly IHttpContextAccessor contextAccessor;
         private readonly HttpClient httpClient;
         public GeneralRepository(Address address, string request)
         {
             this.address = address;
             this.request = request;
-            //_contextAccessor = new HttpContextAccessor();
             httpClient = new HttpClient
             {
                 BaseAddress = new Uri(address.link)
             };
+        }
+
+        public HttpStatusCode Delete(TId id)
+        {
+            var result = httpClient.DeleteAsync(request + id).Result;
+            return result.StatusCode;
         }
 
         public async Task<List<TEntity>> Get()
@@ -53,17 +57,17 @@ namespace Client.Repository
             return entity;
         }
 
-        public HttpStatusCode Post(TEntity entity)
-        {
-            StringContent content = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
-            var result = httpClient.PostAsync(address.link + request, content).Result;
-            return result.StatusCode;
-        }
-
         public HttpStatusCode Put(TId id, TEntity entity)
         {
             StringContent content = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
             var result = httpClient.PutAsync(request + id, content).Result;
+            return result.StatusCode;
+        }
+
+        public HttpStatusCode Post(TEntity entity)
+        {
+            StringContent content = new StringContent(JsonConvert.SerializeObject(entity), Encoding.UTF8, "application/json");
+            var result = httpClient.PostAsync(address.link + request, content).Result;
             return result.StatusCode;
         }
     }
