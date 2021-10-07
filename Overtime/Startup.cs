@@ -59,6 +59,16 @@ namespace Overtime
             services.AddDbContext<MyContext>(options => 
                 options.UseLazyLoadingProxies().
                 UseSqlServer(Configuration.GetConnectionString("OvertimeContext")));
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin();
+                        builder.AllowAnyHeader();
+                        builder.AllowAnyMethod();
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,6 +86,8 @@ namespace Overtime
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseCors(options => options.AllowAnyOrigin());
 
             app.UseEndpoints(endpoints =>
             {

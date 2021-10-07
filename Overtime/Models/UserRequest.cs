@@ -10,7 +10,7 @@ namespace Overtime.Models
     {
         public int Id { get; set; }
         public int RequestId { get; set; }
-        [Required]
+        
         public string UserId { get; set; }
         [Required]
         public string JobTask { get; set; }
@@ -22,9 +22,9 @@ namespace Overtime.Models
         public DateTime EndTime { get; set; }
         [Required]
         public DateTime StartTime { get; set; }
-        [Required]
+        
         public virtual User User { get; set; }
-        [Required]
+        
         public virtual Request Request { get; set; }
     }
 }
