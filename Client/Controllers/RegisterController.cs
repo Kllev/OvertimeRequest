@@ -1,6 +1,10 @@
-﻿using Client.Models;
+﻿using Client.Base.Controllers;
+using Client.Models;
+using Client.Repositories.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Overtime.Models;
+using Overtime.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,13 +13,12 @@ using System.Threading.Tasks;
 
 namespace Client.Controllers
 {
-    public class RegisterController : Controller
+    public class RegisterController : BaseController<User, UserRepository, string>
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public RegisterController(ILogger<HomeController> logger)
+        UserRepository userRepository;
+        public RegisterController(UserRepository userRepository) : base(userRepository)
         {
-            _logger = logger;
+            this.userRepository = userRepository;
         }
 
         public IActionResult Index()
@@ -23,10 +26,11 @@ namespace Client.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost("RegisterData/")]
+        public JsonResult RegisterData([FromBody] RegisterVM register)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var result = userRepository.Register(register);
+            return Json(result);
         }
     }
 }
