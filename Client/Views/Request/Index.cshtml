@@ -1,0 +1,75 @@
+﻿@*@{
+        Layout = null;
+    }*@
+
+<div id="request" class="section">
+        <div class="section-center">
+            <div class="container">
+                <div class="row">
+                    <div class="request-form">
+                        <div class="form-header">
+                            <h1>Make your request</h1>
+                        </div>
+                        <form class="needs-validation" id="formRequest" novalidate>
+                            @*<div class="form-row">
+                                    <div class="col-md mb-3">
+                                        <input type="hidden" class="form-control" id="userid" value="" autocomplete="off" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid job task.
+                                        </div>
+                                    </div>
+                                </div>*@
+                            <div class="form-row">
+                                <div class="col-md mb-3">
+                                    <label for="jobtask">Job Task</label>
+                                    <input type="text" class="form-control" id="jobtask" placeholder="your job task" autocomplete="off" required>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid job task.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md mb-3">
+                                    <label for="date">Date Overtime</label>
+                                    <input type="date" class="form-control" id="date" required>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid date overtime.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="starttime">Start Time</label>
+                                    <input type="time" class="form-control" id="startTime" required>
+                                    <div class="invalid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="endtime">End Time</label>
+                                    <input type="time" class="form-control" id="endTime" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md mb-3">
+                                    <label for="desc">Description</label>
+                                    <textarea id="desc" required="required" class="form-control" name="desc"></textarea>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid job description.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary" id="btnSubmit" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@section Scripts{
+    <script src="~/js/Request.js"></script>
+}

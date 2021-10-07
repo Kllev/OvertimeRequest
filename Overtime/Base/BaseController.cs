@@ -28,31 +28,26 @@ namespace Overtime.Base
             {
                 if (repository.Insert(entity) > 0)
                 {
-                    return Ok(new
-                    {
-                        status = HttpStatusCode.OK,
-                        //data = personRepository.Get(person.NIK),
-                        message = "Data berhasil Di Tambahkan"
-                    });
+                    return Ok(new { status = HttpStatusCode.OK, message = "Data Berhasil ditambahkan" });
                 }
                 else if (repository.Insert(entity) == 0)
                 {
-                    return BadRequest(new
-                    {
-                        status = HttpStatusCode.BadRequest,
-                        message = "NIK tidak boleh kosong"
-                    });
+                    return BadRequest(new { status = HttpStatusCode.BadRequest, message = "Gagal Menambahkan Data" });
+                }
+                else
+                {
+                    return BadRequest(new { status = HttpStatusCode.BadRequest, message = "Data Sudah ada" });
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, new
+                {
+                    status = (int)HttpStatusCode.InternalServerError,
+                    message = e.Message
+                });
             }
-            return BadRequest(new
-            {
-                status = HttpStatusCode.BadRequest,
-                message = "Data Sudah Ada"
-            });
         }
 
         [HttpGet]
