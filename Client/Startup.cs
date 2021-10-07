@@ -1,4 +1,4 @@
-using Client.Base.Address;
+using Client.Base.Urls;
 using Client.Repositories.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
