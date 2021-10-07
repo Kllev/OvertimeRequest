@@ -1,4 +1,4 @@
-﻿using Client.Base.Address;
+﻿using Client.Base.Urls;
 using Client.Repositories.Interface;
 using Newtonsoft.Json;
 using System;
