@@ -1,4 +1,4 @@
-﻿using Client.Base.Urls;
+﻿using Client.Base.Address;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Overtime.Models;
@@ -10,7 +10,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client.Repository.Data
+namespace Client.Repositories.Data
 {
     public class LoginRepository : GeneralRepository<Account, string>
     {

@@ -1,4 +1,4 @@
-﻿using Client.Repository.Interface;
+﻿using Client.Repositories.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
