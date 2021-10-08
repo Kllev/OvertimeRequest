@@ -45,7 +45,7 @@ namespace Client.Controllers
             }
 
             HttpContext.Session.SetString("JWToken", token);
-            //HttpContext.Session.SetString("Name", jwtHandler.GetName(token));
+            HttpContext.Session.SetString("UserId", loginVM.Id);
             //HttpContext.Session.SetString("ProfilePicture", "assets/img/theme/user.png");
 
             return RedirectToAction("Index", "Home");

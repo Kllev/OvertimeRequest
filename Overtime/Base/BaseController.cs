@@ -45,7 +45,7 @@ namespace Overtime.Base
                 return StatusCode((int)HttpStatusCode.InternalServerError, new
                 {
                     status = (int)HttpStatusCode.InternalServerError,
-                    message = e.Message
+                    message = e.InnerException.Message
                 });
             }
         }
