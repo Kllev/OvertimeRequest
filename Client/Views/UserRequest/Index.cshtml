@@ -1,24 +1,22 @@
-﻿@*@{
-        Layout = null;
-    }*@
+﻿@{
+    Layout = "~/Views/Shared/Template/_Layout.cshtml";
+    }
 
 <div id="request" class="section">
-        <div class="section-center">
-            <div class="container">
-                <div class="row">
+    <div class="section-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-3">
                     <div class="request-form">
                         <div class="form-header">
                             <h1>Make your request</h1>
                         </div>
                         <form class="needs-validation" id="formRequest" novalidate>
-                            @*<div class="form-row">
-                                    <div class="col-md mb-3">
-                                        <input type="hidden" class="form-control" id="userid" value="" autocomplete="off" required>
-                                        <div class="invalid-feedback">
-                                            Please provide a valid job task.
-                                        </div>
-                                    </div>
-                                </div>*@
+                            <div class="form-row">
+                                <div class="col-md mb-3">
+                                    <input type="text" readonly class="form-control" id="userid" autocomplete="off" required>
+                                </div>
+                            </div>
                             <div class="form-row">
                                 <div class="col-md mb-3">
                                     <label for="jobtask">Job Task</label>
@@ -67,9 +65,30 @@
                         </form>
                     </div>
                 </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="table-wrap">
+                        <table class="table myaccordion table-hover" id="accordion">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>RequestId</th>
+                                    <th>JobTask</th>
+                                    <th>Date Overtime</th>
+                                    <th>Time</th>
+                                    <th>Desc</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                    
+                </div>
             </div>
-        </div>
     </div>
+</div>
 @section Scripts{
-    <script src="~/js/Request.js"></script>
+    <script src="~/js/UserRequest.js"></script>
 }
