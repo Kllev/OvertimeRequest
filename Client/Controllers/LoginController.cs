@@ -41,11 +41,11 @@ namespace Client.Controllers
 
             if (token == null)
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("index");
             }
 
             HttpContext.Session.SetString("JWToken", token);
-            HttpContext.Session.SetString("UserId", loginVM.Id);
+            //HttpContext.Session.SetString("UserId", loginVM.Id);
             //HttpContext.Session.SetString("ProfilePicture", "assets/img/theme/user.png");
 
             return RedirectToAction("Index", "Home");
