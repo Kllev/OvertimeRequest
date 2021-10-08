@@ -39,6 +39,7 @@ namespace Client
             services.AddControllersWithViews();
 
             services.AddScoped<LoginRepository>();
+            services.AddScoped<UserRepository>();
             services.AddScoped<Address>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
