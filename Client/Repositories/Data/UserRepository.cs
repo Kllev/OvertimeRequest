@@ -16,7 +16,7 @@ namespace Client.Repositories.Data
         private readonly Address address;
         private readonly HttpClient httpClient;
         private readonly string request;
-        public UserRepository(Address address, string request) : base(address, request)
+        public UserRepository(Address address, string request = "Users/") : base(address, request)
         {
             this.address = address;
             this.request = request;
