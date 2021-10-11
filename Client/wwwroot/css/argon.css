@@ -29619,3 +29619,19 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle
 {
     max-width: 200px;
 }
+
+#alertpassword {
+    display: none;
+}
+
+.requirements {
+    list-style-type: none;
+}
+
+.wrong .fa-check {
+    display: none;
+}
+
+.good .fa-times {
+    display: none;
+}
