@@ -2,86 +2,98 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{ Layout = "~/Views/Shared/Template/_LayoutLogin.cshtml"; }
-    <!-- Page content -->
-    <div class="container mt--8 pb-5">
-        <!-- Table -->
-        <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-8">
-                <div class="card bg-secondary border-0">
-                    <div class="card-body px-lg-5 py-lg-5">
-                        <form role="form">
-                            <div class="form-group">
-                                <div class="input-group input-group-merge input-group-alternative mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">EMP</span>
-                                    </div>
-                                    <input type="text" name="NIK" class="form-control" id="inputID" placeholder="Employee ID" required>
+<!-- Page content -->
+<div class="container mt--8 pb-5">
+    <!-- Table -->
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card bg-secondary border-0">
+                <div class="card-body px-lg-5 py-lg-5">
+                    <form role="form">
+                        <div class="form-group">
+                            <div class="input-group input-group-merge input-group-alternative mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">EMP</span>
                                 </div>
+                                <input type="text" name="NIK" class="form-control" id="inputID" placeholder="Employee ID" required>
                             </div>
-                            <div class="form-group">
-                                <div class="input-group input-group-merge input-group-alternative mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
-                                    </div>
-                                    <input type="text" name="FName" class="form-control" id="inputFirstName" placeholder="First name" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group input-group-merge input-group-alternative mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                                 </div>
+                                <input type="text" name="FName" class="form-control" id="inputFirstName" placeholder="First name" required>
                             </div>
-                            <div class="form-group">
-                                <div class="input-group input-group-merge input-group-alternative mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
-                                    </div>
-                                    <input type="text" name="LName" class="form-control" id="inputLastName" placeholder="Last name" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group input-group-merge input-group-alternative mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                                 </div>
-                            </div><div class="form-group">
-                                <div class="input-group input-group-merge input-group-alternative mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-phone"></i></span>
-                                    </div>
-                                    <input type="text" name="Phone" class="form-control" id="inputPhone" placeholder="Phone" required>
+                                <input type="text" name="LName" class="form-control" id="inputLastName" placeholder="Last name" required>
+                            </div>
+                        </div><div class="form-group">
+                            <div class="input-group input-group-merge input-group-alternative mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-phone"></i></span>
                                 </div>
+                                <input type="text" name="Phone" class="form-control" id="inputPhone" placeholder="Phone" required>
                             </div>
-                            <div class="form-group">
-                                <div class="input-group input-group-merge input-group-alternative mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fa fa-user"></i></span>
-                                    </div>
-                                    <select id="inputGender" name="inputGenderName" class="form-control">
-                                        <option value="0">Male</option>
-                                        <option value="1">Female</option>
-                                    </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group input-group-merge input-group-alternative mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
                                 </div>
+                                <select id="inputGender" name="inputGenderName" class="form-control">
+                                    <option value="0">Male</option>
+                                    <option value="1">Female</option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <div class="input-group input-group-merge input-group-alternative mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
-                                    </div>
-                                    <input type="number" name="salary" class="form-control" id="inputSalary" placeholder="Salary" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group input-group-merge input-group-alternative mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
                                 </div>
+                                <input type="number" name="salary" class="form-control" id="inputSalary" placeholder="Salary" required>
                             </div>
-                            <div class="form-group">
-                                <div class="input-group input-group-merge input-group-alternative mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                                    </div>
-                                    <input type="text" name="email" class="form-control" id="inputEmail" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group input-group-merge input-group-alternative mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                 </div>
+                                <input type="text" name="email" class="form-control" id="inputEmail" placeholder="Email" required>
                             </div>
-                            <div class="form-group">
-                                <div class="input-group input-group-merge input-group-alternative">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                        </div>
+                        <div class="form-group">
+                                <div class="form-group">
+                                    <div class="input-group input-group-merge input-group-alternative mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-lock prefix"></i></span>
+                                        </div>
+                                        <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" required>
                                     </div>
-                                    <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" required>
                                 </div>
-                            </div>
-                            <div class="text-center">
-                                <button type="button" class="btn btn-primary mt-4">Create account</button>
-                            </div>
-                        </form>
-                    </div>
+                                <div id="alertpassword" class="alert alert-warning password-alert" role="alert">
+                                    <ul>
+                                        <li class="requirements leng"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 8 chars.</li>
+                                        <li class="requirements big-letter"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 1 big letter.</li>
+                                        <li class="requirements num"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 1 number.</li>
+                                    </ul>
+                                </div>
+                        </div>
+                        <div class="text-center">
+                            <button id="registerButton" type="button" class="btn btn-primary mt-4">Create account</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
+@section scripts{
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}

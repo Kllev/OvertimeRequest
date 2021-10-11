@@ -1,7 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/Template/_Layout.cshtml";
 }
-
 <div class="container mt--8 pb-5">
     <div class="row justify-content-center">
         <div class="col-lg-5 col-md-7">
@@ -13,13 +12,13 @@
                         </div>
                         <form form class="user" method="post" asp-controller="ChangePassword" asp-action="Auth">
                             @*<div class="input-group mb-3">
-                                    <div class="input-group input-group-merge input-group-alternative">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                                        </div>
-                                        <input class="form-control" placeholder="Email" type="email" name="email">
-                                    </div>
-                                </div>*@
+            <div class="input-group input-group-merge input-group-alternative">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                </div>
+                <input class="form-control" placeholder="Email" type="email" name="email">
+            </div>
+        </div>*@
                             <div class="input-group mb-3">
                                 <div class="input-group input-group-merge input-group-alternative">
                                     <div class="input-group-prepend">
@@ -34,6 +33,21 @@
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
                                     <input class="form-control" placeholder="New Password" type="password" name="newPassword">
+                                </div>
+                                <div id="alertpassword" class="alert alert-warning password-alert" role="alert">
+                                    <ul>
+                                        <li class="requirements leng"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 8 chars.</li>
+                                        <li class="requirements big-letter"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 1 big letter.</li>
+                                        <li class="requirements num"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 1 number.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group input-group-merge input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                    </div>
+                                    <input class="form-control" placeholder="Confirm Password" type="password" name="confirmPassword">
                                 </div>
                             </div>
                             <div class="row">
@@ -51,5 +65,5 @@
     </div>
 </div>
 @section Scripts{
-    <script src="~/js/Change.js"></script>
+    <script src="~/js/change.js"></script>
 }
