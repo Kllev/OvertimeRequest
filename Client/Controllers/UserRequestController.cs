@@ -1,5 +1,6 @@
 ﻿using Client.Base.Controllers;
 using Client.Repositories.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Overtime.Models;
@@ -18,6 +19,7 @@ namespace Client.Controllers
         {
             this.repository = repository;
         }
+        [Authorize]
         public IActionResult Index()
         {
             ViewBag.userId = HttpContext.Session.GetString("UserId");

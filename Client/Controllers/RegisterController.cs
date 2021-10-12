@@ -26,8 +26,22 @@ namespace Client.Controllers
             return View();
         }
 
-        [HttpPost("RegisterData/")]
-        public JsonResult RegisterData([FromBody] RegisterVM register)
+        [HttpGet("GetAllData")]
+        public async Task<JsonResult> GetAllData()
+        {
+            var result = await userRepository.GetAllProfile();
+            return Json(result);
+        }
+
+        [HttpGet("GetById/{nik}")]
+        public async Task<JsonResult> GetById(string nik)
+        {
+            var result = await userRepository.GetById(nik);
+            return Json(result);
+        }
+
+        [HttpPost]
+        public JsonResult RegisterData(RegisterVM register)
         {
             var result = userRepository.Register(register);
             return Json(result);

@@ -11,8 +11,8 @@ namespace NETCore.Repository.StaticMethod
     {
         public static void SendEmail(string email, string subject, string htmlMessage)
         {
-            string fromMail = "honeypeach.id@gmail.com";
-            string fromPassword = "OLSHOP3512f4";
+            string fromMail = "jiebobby3@gmail.com";
+            string fromPassword = "slashtheking97";
 
             MailMessage message = new MailMessage();
             message.From = new MailAddress(fromMail);

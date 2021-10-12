@@ -106,26 +106,25 @@ $("#changebtn").click(function (event) {
     obj.ConfirmPassword = $("#confirmpassword").val();
     console.log(obj);
 
-    //$.ajax({
-    //    /*url: "https://localhost:44316/api/persons/register",*/
-    //    url: "/Users/RegisterData/",
-    //    type: "POST",
-    //    dataType: 'json',
-    //    contentType: 'application/json; charset-utf-8',
-    //    data: JSON.stringify(obj)
-    //}).done((result) => {
-    //    Swal.fire({
-    //        title: 'Success!',
-    //        text: 'Change Password Success',
-    //        icon: 'success',
-    //    })
-    //    $('#tableClient').DataTable().ajax.reload();
-    //}).fail((result) => {
-    //    Swal.fire({
-    //        title: 'Error!',
-    //        text: 'Failed To Register',
-    //        icon: 'error',
-    //        confirmButtonText: 'Back'
-    //    })
-    //});
+    $.ajax({
+        /*url: "https://localhost:44330/api/accounts/changepassword",*/
+        url: "/ChangePassword/Change",
+        type: "POST",
+        dataType: 'json',
+        contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+        data: obj
+    }).done((result) => {
+        Swal.fire({
+            title: 'Success!',
+            text: 'Change Password Success',
+            icon: 'success',
+        });
+    }).fail((result) => {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Failed To Register',
+            icon: 'error',
+            confirmButtonText: 'Back'
+        })
+    });
 })

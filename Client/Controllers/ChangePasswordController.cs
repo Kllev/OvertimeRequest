@@ -1,5 +1,6 @@
-﻿using Client.Base.Controllers;
+using Client.Base.Controllers;
 using Client.Repositories.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Overtime.Models;
@@ -13,23 +14,24 @@ namespace Client.Controllers
 {
     public class ChangePasswordController : BaseController<Account, ChangePasswordRepository, string>
     {
-        ChangePasswordRepository repository;
+        ChangePasswordRepository changePasswordRepository;
 
         public ChangePasswordController(ChangePasswordRepository repository) : base(repository)
         {
-            this.repository = repository;
+            this.changePasswordRepository = repository;
         }
-
+        [Authorize]
         public IActionResult Index()
         {
+            ViewBag.email = HttpContext.Session.GetString("Email");
             return View();
         }
-        [HttpPost("ChangePassword")]
-        public JsonResult ChangePassword(LoginVM loginVM)
+
+        [HttpPost]
+        public JsonResult Change(LoginVM loginVM)
         {
-            var result = repository.ChangePassword(loginVM);
+            var result = changePasswordRepository.ChangePassword(loginVM);
             return Json(result);
         }
-
     }
 }

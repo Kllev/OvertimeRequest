@@ -15,18 +15,8 @@
 $("#registerBtn").click(function (event) {
     event.preventDefault();
 
-    bootstrapValidate('#inputId', 'required');
-    bootstrapValidate('#inputFirstName', 'required');
-    bootstrapValidate('#inputLastName', 'required');
-    bootstrapValidate('#inputPhone', 'required');
-    bootstrapValidate('#inputBirthdate', 'required');
-    bootstrapValidate('#inputSalary', 'required');
-    bootstrapValidate('#inputEmail', 'required');
-    bootstrapValidate('#inputPassword', 'required');
-    bootstrapValidate('#inputdivisi', 'required');
-
     var obj = new Object();
-    obj.userId = $('#inputId').val();
+    obj.userId = $('#inputID').val();
     obj.FirstName = $("#inputFirstName").val();
     obj.LastName = $("#inputLastName").val();
     obj.Phone = $("#inputPhone").val();
@@ -34,23 +24,22 @@ $("#registerBtn").click(function (event) {
     obj.Salary = parseInt($("#inputSalary").val());
     obj.Email = $("#inputEmail").val();
     obj.Password = $("#inputPassword").val();
-    obj.UniversityId = parseInt($("#inputdivisi").val());
+    obj.DivisionId = parseInt($("#inputdivisi").val());
     console.log(obj);
 
     $.ajax({
         /*url: "https://localhost:44316/api/persons/register",*/
-        url: "/Users/RegisterData/",
+        url: "/Register/RegisterData",
         type: "POST",
         dataType: 'json',
-        contentType: 'application/json; charset-utf-8',
-        data: JSON.stringify(obj)
+        contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+        data: obj
     }).done((result) => {
         Swal.fire({
             title: 'Success!',
             text: 'You Have Been Registered',
             icon: 'success',
-        })
-        $('#tableClient').DataTable().ajax.reload();
+        }).then(result => window.location = '/Login/Index');
     }).fail((result) => {
         Swal.fire({
             title: 'Error!',
@@ -127,3 +116,34 @@ $(function () {
         }
     });
 });
+
+$("#forgotbtn").click(function (event) {
+    event.preventDefault();
+
+    var obj = new Object();
+    obj.Id = $('#inputuserId').val();
+    obj.Email = $("#inputEmail").val();
+    console.log(obj);
+
+    $.ajax({
+        /*url: "https://localhost:44316/api/persons/register",*/
+        url: "/ForgotPassword/Forgot",
+        type: "POST",
+        dataType: 'json',
+        contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+        data: obj
+    }).done((result) => {
+        Swal.fire({
+            title: 'Success!',
+            text: 'You Have Been Registered',
+            icon: 'success',
+        });
+    }).fail((result) => {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Failed To Register',
+            icon: 'error',
+            confirmButtonText: 'Back'
+        })
+    });
+})

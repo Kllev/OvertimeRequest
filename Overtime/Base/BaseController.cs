@@ -86,7 +86,7 @@ namespace Overtime.Base
             return NotFound(new
             {
                 status = HttpStatusCode.NotFound,
-                message = "Data dengan NIK tersebut Tidak Ditemukan"
+                message = "Data Tidak Ditemukan"
                 //return Ok(personRepository.Get(NIK));
             });
         }

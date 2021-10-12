@@ -11,27 +11,27 @@
                         <div class="form-header">
                             <h1>Forgot Password</h1>
                         </div>
-                        <form form class="user" method="post" asp-controller="ForgotPassword">
+                        <form form class="user">
                             <div class="input-group mb-3">
-                                    <div class="input-group input-group-merge input-group-alternative">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                                        </div>
-                                        <input class="form-control" placeholder="Email" type="email" name="email">
+                                <div class="input-group input-group-merge input-group-alternative">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                     </div>
+                                    <input id="inputEmail" class="form-control" placeholder="Email" type="email" name="email">
                                 </div>
+                            </div>
                             <div class="input-group mb-3">
                                 <div class="input-group input-group-merge input-group-alternative">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Employee Id" type="text" name="employeeID">
+                                    <input id="inputuserId" class="form-control" placeholder="Employee Id" type="text" name="employeeID">
                                 </div>
                             </div>
                             <div class="row">
                                 <!-- /.col -->
                                 <div class="col-5">
-                                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                    <button id="forgotbtn" type="submit" class="btn btn-primary btn-block">Submit</button>
                                 </div>
                                 <!-- /.col -->
                             </div>
@@ -42,4 +42,6 @@
         </div>
     </div>
 </div>
-
+@section Scripts{
+    <script src="~/js/site.js"></script>
+}

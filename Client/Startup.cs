@@ -42,6 +42,8 @@ namespace Client
             services.AddScoped<UserRepository>();
             services.AddScoped<UserRequestRepository>();
             services.AddScoped<ChangePasswordRepository>();
+            services.AddScoped<ForgotPasswordRepository>();
+
             services.AddScoped<Address>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
