@@ -1,6 +1,9 @@
 ﻿@{
     Layout = "~/Views/Shared/Template/_Layout.cshtml";
 }
+<script>
+    var email = '@ViewBag.Email';
+</script>
 <div class="container mt--8 pb-5">
     <div class="row justify-content-center">
         <div class="col-lg-5 col-md-7">
@@ -10,21 +13,13 @@
                         <div class="form-header">
                             <h1>Change Password</h1>
                         </div>
-                        <form form class="user" method="post" asp-controller="ChangePassword" asp-action="Auth">
-                            @*<div class="input-group mb-3">
-            <div class="input-group input-group-merge input-group-alternative">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                </div>
-                <input class="form-control" placeholder="Email" type="email" name="email">
-            </div>
-        </div>*@
+                        <form form class="user">
                             <div class="input-group mb-3">
                                 <div class="input-group input-group-merge input-group-alternative">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Password" type="password" name="password">
+                                    <input id="oldpassword" class="form-control" placeholder="Password" type="password" name="password">
                                 </div>
                             </div>
                             <div class="input-group mb-3">
@@ -32,7 +27,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="New Password" type="password" name="newPassword">
+                                    <input id="newpassword" class="form-control" placeholder="New Password" type="password" name="newPassword">
                                 </div>
                                 <div id="alertpassword" class="alert alert-warning password-alert" role="alert">
                                     <ul>
@@ -47,13 +42,13 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Confirm Password" type="password" name="confirmPassword">
+                                    <input id="confirmpassword" class="form-control" placeholder="Confirm Password" type="password" name="confirmPassword">
                                 </div>
                             </div>
                             <div class="row">
                                 <!-- /.col -->
                                 <div class="col-5">
-                                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                    <button type="submit" id="changebtn" class="btn btn-primary btn-block">Submit</button>
                                 </div>
                                 <!-- /.col -->
                             </div>
