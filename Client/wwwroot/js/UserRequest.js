@@ -1,5 +1,20 @@
-﻿(function () {
+﻿////$(document).ready(function () {
+////    $('.datepicker').datepicker({
+////        startDate: '-3d'
+////    });
+////});
+$(function () {
+    $('#dateOvertime').datepicker({
+        startDate: '-3d',
+        endDate: '0d',
+        todayHighlight: 'TRUE',
+        format: 'mm/dd/yyyy',
+        daysOfWeekHighlight: [0, 6]
+    });
+});
+(function () {
     'use strict';
+
     window.addEventListener('load', function () {
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
         var forms = document.getElementsByClassName('needs-validation');
@@ -29,13 +44,65 @@
         });
     }, false);
 })();
+
+//$(document).ready(function () {
+//    $('#myTable').DataTable({
+//        "filter": true,
+//        "ajax": {
+//            "url": "/UserRequest/GetAllData",
+//            "datatype": "json",
+//            "dataSrc": ""
+//        },
+//        "dom": 'Bfrtip',
+//        "buttons": [
+//            {
+//                extend: 'excelHtml5',
+//                exportOptions: {
+//                    columns: [1, 2, 3, 4, 5]
+//                },
+//                className: 'btn btn-sm btn-outline-secondary',
+//                bom: true
+//            },
+//            {
+//                extend: 'pdfHtml5',
+//                exportOptions: {
+//                    columns: [1, 2, 3, 4, 5]
+
+//                },
+//                className: 'btn btn-sm btn-outline-secondary',
+//                bom: true
+//            },
+//            {
+//                extend: 'print',
+//                exportOptions: {
+//                    columns: [1, 2, 3, 4, 5]
+//                },
+//                className: 'btn btn-sm btn-outline-secondary',
+//                bom: true
+//            },
+//        ],
+//        "columns": [
+//            {
+//                "data": null,
+//                render: function (data, type, row, meta) {
+//                    return meta.row + meta.settings._iDisplayStart + 1;
+//                },
+//                /*"autoWidth": true,*/
+//                "orderable": false
+//            },
+//            { "data": "RequestId", "autoWidth": true },
+//            { "data": "JobTask", "autoWidth": true },
+//            { "data": "Date", "autoWidth": true },
+//            { "data": "time", "autoWidth": true },
+//        ]
+//    });
+//});
 function insert() {
-    var userid = context.Session.GetString(UserId);
     var obj = {
         "UserId":$('#userid').val(),
         "JobTask": $('#jobtask').val(),
         "Description": $('#desc').val(),
-        "Date": $('#date').val(),
+        "Date": $('#dateOvertime').val(),
         "EndTime": $('#startTime').val(),
         "StartTime": $('#endTime').val(),
     };

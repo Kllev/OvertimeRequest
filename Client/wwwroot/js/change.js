@@ -1,4 +1,35 @@
-﻿$(function () {
+﻿$("#btnSubmit").click(function (event) {
+    event.preventDefault();
+
+    var obj = new Object();
+    obj.Password = $('#password').val();
+    obj.NewPassword = $("#newPassword").val();
+    console.log(obj);
+
+    $.ajax({
+        /*url: "https://localhost:44316/api/persons/register",*/
+        url: "/Accounts/ChangePassword",
+        type: "POST",
+        dataType: 'json',
+        contentType: 'application/json; charset-utf-8',
+        data: JSON.stringify(obj)
+    }).done((result) => {
+        Swal.fire({
+            title: 'Success!',
+            text: 'Password Has been Change',
+            icon: 'success',
+        })
+        $('#tableClient').DataTable().ajax.reload();
+    }).fail((result) => {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Failed To Change Password',
+            icon: 'error',
+            confirmButtonText: 'Back'
+        })
+    });
+})
+$(function () {
     var $password = $(".form-control[type='password']");
     var $passwordAlert = $(".password-alert");
     var $requirements = $(".requirements");

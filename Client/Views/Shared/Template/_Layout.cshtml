@@ -19,6 +19,7 @@
     <!-- Page plugins -->
     <!-- Argon CSS -->
     <link rel="stylesheet" href="~/css/argon.css" type="text/css">
+    <link rel="stylesheet" href="~/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
 </head>
 <body>
     <!-- Sidenav -->
@@ -93,7 +94,7 @@
                                 <div class="dropdown-header noti-title">
                                     <h6 class="text-overflow m-0">Welcome!</h6>
                                 </div>
-                                <a href="#!" class="dropdown-item">
+                                <a asp-controller="ChangePassword" class="dropdown-item">
                                     <i class="ni ni-single-02"></i>
                                     <span>Change Password</span>
                                 </a>
@@ -139,12 +140,15 @@
     <script src="~/vendor/chart.js/dist/Chart.extension.js"></script>
     <!-- Argon JS -->
     @*<script src="~/js/argon.js?v=1.1.0"></script>*@
-    <script src="~/js/argon.js"></script>
+    @*<script src="~/js/argon.js"></script>*@
     <!-- Demo JS - remove this in your project -->
     <script src="~/js/demo.min.js"></script>
     @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.all.min.js"></script>
-    @*<script src="~/js/site.js" asp-append-version="true"></script>*@
+    @*<script src="~/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
+    @*
+        <script src="~/js/site.js" asp-append-version="true"></script>*@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
