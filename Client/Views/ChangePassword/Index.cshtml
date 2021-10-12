@@ -24,7 +24,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Password" type="password" name="password" id="password">
+                                    <input class="form-control" placeholder="Password" type="password" name="password" id="password" required>
                                 </div>
                             </div>
                             <div class="input-group mb-3">
@@ -32,7 +32,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="New Password" type="password" name="newPassword" id="newPassword">
+                                    <input class="form-control" placeholder="New Password" type="password" name="newPassword" id="newpassword" required>
                                 </div>
                                 <div id="alertpassword" class="alert alert-warning password-alert" role="alert">
                                     <ul>
@@ -47,8 +47,9 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="Confirm Password" type="password" name="confirmPassword">
+                                    <input id="confirmpassword" class="form-control" placeholder="Confirm Password" type="password" name="confirmPassword">
                                 </div>
+                            <span id="message"></span>
                             </div>
                             <div class="row">
                                 <!-- /.col -->
