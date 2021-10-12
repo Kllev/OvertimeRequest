@@ -70,6 +70,16 @@ namespace Overtime.Repository.Data
                     }
          ).Where(user => user.Email == login.Email).First();
         }
+        public string GetId(string email)
+        {
+            var checkEmail = myContext.Users.Where(p => p.Email == email).FirstOrDefault();
+            return checkEmail.Id;
+        }
+        public string GetName(string email)
+        {
+            var checkName = myContext.Users.Where(p => p.Email == email).FirstOrDefault();
+            return checkName.FirstName;
+        }
         public LoginVM FindByEmail(string email)
         {
             var data = myContext.Users.Where(u => u.Email == email);

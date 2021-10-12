@@ -69,24 +69,36 @@
                             </div>
                         </div>
                         <div class="form-group">
-                                <div class="form-group">
-                                    <div class="input-group input-group-merge input-group-alternative mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-lock prefix"></i></span>
-                                        </div>
-                                        <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                            <div class="form-group">
+                                <div class="input-group input-group-merge input-group-alternative mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-lock prefix"></i></span>
                                     </div>
+                                    <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" required>
                                 </div>
-                                <div id="alertpassword" class="alert alert-warning password-alert" role="alert">
-                                    <ul>
-                                        <li class="requirements leng"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 8 chars.</li>
-                                        <li class="requirements big-letter"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 1 big letter.</li>
-                                        <li class="requirements num"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 1 number.</li>
-                                    </ul>
+                            </div>
+                            <div id="alertpassword" class="alert alert-warning password-alert" role="alert">
+                                <ul>
+                                    <li class="requirements leng"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 8 chars.</li>
+                                    <li class="requirements big-letter"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 1 big letter.</li>
+                                    <li class="requirements num"><i class="fas fa-check green-text"></i><i class="fas fa-times red-text"></i> Your password must have at least 1 number.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group input-group-merge input-group-alternative mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
                                 </div>
+                                <select id="inputdivisi" name="inputdivisi" class="form-control">
+                                    <option value=""></option>
+
+
+                                </select>
+                            </div>
                         </div>
                         <div class="text-center">
-                            <button id="registerButton" type="button" class="btn btn-primary mt-4">Create account</button>
+                            <button id="registerBtn" type="button" class="btn btn-primary mt-4">Create account</button>
                         </div>
                     </form>
                 </div>

@@ -82,5 +82,22 @@ namespace Overtime.Repository.Data
             }
             return insert;
         }
+
+        public RegisterVM GetById(string id)
+        {
+            var all = (from p in myContext.Users
+                       join a in myContext.Accounts on p.Id equals a.Id
+                       select new RegisterVM
+                       {
+                           userID = p.Id,
+                           FirstName = p.FirstName,
+                           LastName = p.LastName,
+                           Phone = p.PhoneNumber,
+                           Salary = p.Salary,
+                           Email = p.Email,
+                           Password = a.Password,
+                       });
+            return all.FirstOrDefault(p => p.userID == id);
+        }
     }
 }
