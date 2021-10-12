@@ -8,8 +8,7 @@ $(function () {
         startDate: '-3d',
         endDate: '0d',
         todayHighlight: 'TRUE',
-        format: 'mm/dd/yyyy',
-        daysOfWeekHighlight: [0, 6]
+        format: 'dd/mm/yyyy'
     });
 });
 (function () {

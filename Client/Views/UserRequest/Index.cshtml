@@ -18,9 +18,13 @@
                                 </div>
                                 <form class="needs-validation" id="formRequest" novalidate>
                                     <div class="form-row">
+                                        @{ var iden = User.Identity.IsAuthenticated; }
+                                        @if (iden)
+                                        {
                                         <div class="col-md mb-3">
-                                            <input type="text" readonly class="form-control" id="userid" autocomplete="off" required>
+                                            <input type="text" readonly class="form-control" id="userid" value="@ViewBag.UserId"  autocomplete="off" required>
                                         </div>
+                                        }
                                     </div>
                                     <div class="form-row">
                                         <div class="col-md mb-3">
@@ -38,7 +42,7 @@
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                                 </div>
-                                                <input class="form-control datepicker" placeholder="Select date" type="text" data-date-start-date="-3d" id="dateOvertime" autocomplete="off" required>
+                                                <input class="form-control datepicker" placeholder="Select date" type="text" id="dateOvertime" autocomplete="off" required>
                                                 <div class="invalid-feedback">
                                                     Please provide a valid date overtime.
                                                 </div>
