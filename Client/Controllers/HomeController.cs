@@ -1,4 +1,5 @@
 ﻿using Client.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -20,6 +21,8 @@ namespace Client.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.userId = HttpContext.Session.GetString("UserId");
+            ViewBag.firstName = HttpContext.Session.GetString("FirstName");
             return View();
         }
 

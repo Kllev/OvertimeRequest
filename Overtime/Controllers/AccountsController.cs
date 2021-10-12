@@ -24,6 +24,7 @@ namespace Overtime.Controllers
     public class AccountsController : BaseController<Account, AccountRepository, string>
     {
         private readonly AccountRepository repository;
+        private readonly UserRepository userRepository;
         public IConfiguration _configuration;
         private readonly MyContext myContext;
         Role role = new Role();
@@ -83,19 +84,6 @@ namespace Overtime.Controllers
                         message = "Password Salah"
                     });
                 }
-                //else
-                //{
-                //    return Ok(new
-                //    {
-                //        status = HttpStatusCode.OK,
-                //        message = "Login Success !"
-                //    });
-                //}
-                //return StatusCode((int)HttpStatusCode.OK, new
-                //{
-                //    status = (int)HttpStatusCode.OK,
-                //    message = "Success Login",
-                //});
                 else
                 {   
                     string[] roles = repository.Roles(login.Email);
@@ -111,18 +99,12 @@ namespace Overtime.Controllers
 
                     var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claim, expires: DateTime.UtcNow.AddDays(1), signingCredentials: signIn);
 
-                    //return Ok(new
-                    //{
-                    //    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    //    status = HttpStatusCode.OK,
-                    //    message = "Login Success !"
-                    //});
-                    return Ok(new JWTokenVM { Token = new JwtSecurityTokenHandler().WriteToken(token), Messages = "Login Berhasil" });
-                    //return Ok(new
-                    //{
-                    //    status = HttpStatusCode.OK,
-                    //    message = "Login Berhasil"
-                    //});
+                    return Ok(new JWTokenVM 
+                      { Token = new JwtSecurityTokenHandler().WriteToken(token), 
+                        Id = repository.GetId(login.Email),
+                        firstName = repository.GetName(login.Email),
+                        Messages = "Login Berhasil"
+                    });
                 }
 
             }
