@@ -1,8 +1,32 @@
-﻿$("#registerBtn").click(function (event) {
+﻿$.ajax({
+    url: "https://localhost:44330/api/divisions",
+
+}).done(result => {
+    text = ''
+    $.each(result.data, function (key, val) {
+        console.log(val.id)
+        text += `<option value= "${val.id}">${val.name}</option>`
+    })
+    $('#inputdivisi').html(text)
+}).fail(result => {
+    console.log(result)
+});
+
+$("#registerBtn").click(function (event) {
     event.preventDefault();
 
+    bootstrapValidate('#inputId', 'required');
+    bootstrapValidate('#inputFirstName', 'required');
+    bootstrapValidate('#inputLastName', 'required');
+    bootstrapValidate('#inputPhone', 'required');
+    bootstrapValidate('#inputBirthdate', 'required');
+    bootstrapValidate('#inputSalary', 'required');
+    bootstrapValidate('#inputEmail', 'required');
+    bootstrapValidate('#inputPassword', 'required');
+    bootstrapValidate('#inputdivisi', 'required');
+
     var obj = new Object();
-    obj.userId = $('#inputuserId').val();
+    obj.userId = $('#inputId').val();
     obj.FirstName = $("#inputFirstName").val();
     obj.LastName = $("#inputLastName").val();
     obj.Phone = $("#inputPhone").val();
@@ -10,6 +34,7 @@
     obj.Salary = parseInt($("#inputSalary").val());
     obj.Email = $("#inputEmail").val();
     obj.Password = $("#inputPassword").val();
+    obj.UniversityId = parseInt($("#inputdivisi").val());
     console.log(obj);
 
     $.ajax({
