@@ -1,4 +1,4 @@
-﻿using Client.Base.Controllers;
+using Client.Base.Controllers;
 using Client.Repositories.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

@@ -1,4 +1,4 @@
-﻿using Client.Base.Urls;
+using Client.Base.Urls;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Overtime.Models;
