@@ -83,38 +83,38 @@
                     @{ var iden = User.Identity.IsAuthenticated; }
                     @if (iden)
                     {
-                        <ul class="navbar-nav align-items-center ml-auto ml-md-0">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <div class="media align-items-center">
-                                        <div class="media-body ml-2 d-none d-lg-block">
-                                            <span class="mb-0 text-sm  font-weight-bold">@ViewBag.firstName</span>
-                                        </div>
+                    <ul class="navbar-nav align-items-center ml-auto ml-md-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <div class="media align-items-center">
+                                    <div class="media-body ml-2 d-none d-lg-block">
+                                        <span class="mb-0 text-sm  font-weight-bold">@ViewBag.firstName</span>
                                     </div>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <div class="dropdown-header noti-title">
-                                        <h6 class="text-overflow m-0">Welcome!</h6>
-                                    </div>
-                                    <a asp-area="" asp-controller="ChangePassword" asp-action="Index" class="dropdown-item">
-                                        <i class="ni ni-single-02"></i>
-                                        <span>Change Password</span>
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a asp-controller="Login" asp-action="Logout" class="dropdown-item">
-                                        <i class="ni ni-user-run"></i>
-                                        <span>Logout</span>
-                                    </a>
                                 </div>
-                            </li>
-                        </ul>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div class="dropdown-header noti-title">
+                                    <h6 class="text-overflow m-0">Welcome!</h6>
+                                </div>
+                                <a asp-area="" asp-controller="ChangePassword" asp-action="Index" class="dropdown-item">
+                                    <i class="ni ni-single-02"></i>
+                                    <span>Change Password</span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a asp-controller="Login" asp-action="Logout" class="dropdown-item">
+                                    <i class="ni ni-user-run"></i>
+                                    <span>Logout</span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
 
                     }
                     else
                     {
-                        <div class="navbar-nav ml-auto">
-                            <a class="btn btn-primary" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
-                        </div>
+                    <div class="navbar-nav ml-auto">
+                        <a class="btn btn-primary" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
+                    </div>
                     }
                 </div>
             </div>
@@ -150,12 +150,14 @@
     <script src="~/vendor/chart.js/dist/Chart.extension.js"></script>
     <!-- Argon JS -->
     @*<script src="~/js/argon.js?v=1.1.0"></script>*@
-    <script src="~/js/argon.js"></script>
+    @*<script src="~/js/argon.js"></script>*@
     <!-- Demo JS - remove this in your project -->
     <script src="~/js/demo.min.js"></script>
     @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.5/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
     @*<script src="~/js/site.js" asp-append-version="true"></script>*@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+

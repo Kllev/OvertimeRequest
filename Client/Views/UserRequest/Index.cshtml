@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/Template/_Layout.cshtml";
-    }
+}
 
 <div id="request" class="section">
     <div class="section-center">
@@ -8,7 +8,7 @@
             <div class="row">
                 @*<div class="col-md-6 mb-3">
 
-        </div>*@
+                    </div>*@
                 <div class="col-xl-4 order-xl-2">
                     <div class="card">
                         <div class="card-header">
@@ -18,9 +18,13 @@
                                 </div>
                                 <form class="needs-validation" id="formRequest" novalidate>
                                     <div class="form-row">
+                                        @{ var iden = User.Identity.IsAuthenticated; }
+                                        @if (iden)
+                                        {
                                         <div class="col-md mb-3">
-                                            <input type="text" readonly class="form-control" id="userid" autocomplete="off" required>
+                                            <input type="text" readonly class="form-control" id="userid" value="@ViewBag.UserId"  autocomplete="off" required>
                                         </div>
+                                        }
                                     </div>
                                     <div class="form-row">
                                         <div class="col-md mb-3">
@@ -34,9 +38,14 @@
                                     <div class="form-row">
                                         <div class="col-md mb-3">
                                             <label for="date">Date Overtime</label>
-                                            <input type="date" class="form-control" id="date" required>
-                                            <div class="invalid-feedback">
-                                                Please provide a valid date overtime.
+                                            <div class="input-group date">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                                                </div>
+                                                <input class="form-control datepicker" placeholder="Select date" type="text" id="dateOvertime" autocomplete="off" required>
+                                                <div class="invalid-feedback">
+                                                    Please provide a valid date overtime.
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -76,7 +85,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="table-wrap">
-                                <table class="table myaccordion table-hover" id="accordion">
+                                <table class="table myaccordion table-hover" id="myTable">
                                     <thead>
                                         <tr>
                                             <th>No.</th>
@@ -95,9 +104,10 @@
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
     </div>
 </div>
 @section Scripts{
     <script src="~/js/UserRequest.js"></script>
+
 }
