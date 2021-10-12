@@ -88,7 +88,9 @@ namespace Overtime.Controllers
                 {   
                     string[] roles = repository.Roles(login.Email);
                     var claim = new List<Claim>();
-                    claim.Add(new Claim("email", login.Email));
+                    claim.Add(new Claim(ClaimTypes.Email, login.Email));
+                    claim.Add(new Claim(ClaimTypes.Name, repository.GetName(login.Email)));
+                    claim.Add(new Claim(ClaimTypes.NameIdentifier, repository.GetId(login.Email)));
                     foreach (string d in roles)
                     {
                         claim.Add(new Claim("roles", d));
@@ -102,7 +104,6 @@ namespace Overtime.Controllers
                     return Ok(new JWTokenVM 
                       { Token = new JwtSecurityTokenHandler().WriteToken(token), 
                         Id = repository.GetId(login.Email),
-                        firstName = repository.GetName(login.Email),
                         Messages = "Login Berhasil"
                     });
                 }

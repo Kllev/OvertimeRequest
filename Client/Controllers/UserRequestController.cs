@@ -1,5 +1,6 @@
 ﻿using Client.Base.Controllers;
 using Client.Repositories.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Overtime.Models;
 using System;
@@ -17,6 +18,7 @@ namespace Client.Controllers
         {
             this.repository = repository;
         }
+        [Authorize]
         public IActionResult Index()
         {
             return View();

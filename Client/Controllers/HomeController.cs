@@ -1,4 +1,5 @@
 ﻿using Client.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -21,9 +22,15 @@ namespace Client.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.userId = HttpContext.Session.GetString("UserId");
-            ViewBag.firstName = HttpContext.Session.GetString("FirstName");
-            return View();
+            //jika sudah login
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.userId = HttpContext.Session.GetString("UserId");
+                ViewBag.firstName = HttpContext.Session.GetString("FirstName");
+                return View();
+            }
+            //jika belom login
+            return RedirectToAction("Index", "Login");
         }
 
         public IActionResult Privacy()

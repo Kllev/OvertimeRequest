@@ -34,7 +34,6 @@ namespace Client.Controllers
             var jwtToken = await loginRepository.Auth(loginVM);
             var token = jwtToken.Token;
             var employeeId = jwtToken.Id;
-            var firstName = jwtToken.firstName;
 
             if (token == null)
             {
@@ -44,7 +43,6 @@ namespace Client.Controllers
             HttpContext.Session.SetString("JWToken", token);
             HttpContext.Session.SetString("Email", loginVM.Email);
             HttpContext.Session.SetString("UserId", employeeId);
-            HttpContext.Session.SetString("FirstName", firstName);
 
             //HttpContext.Session.SetString("ProfilePicture", "assets/img/theme/user.png");
 
@@ -61,7 +59,7 @@ namespace Client.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Login");
         }
     }
 }

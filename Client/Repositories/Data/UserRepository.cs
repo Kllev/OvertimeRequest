@@ -25,6 +25,31 @@ namespace Client.Repositories.Data
                 BaseAddress = new Uri(address.link)
             };
         }
+
+        public async Task<List<RegisterVM>> GetAllProfile()
+        {
+            List<RegisterVM> registers = new List<RegisterVM>();
+
+            using (var response = await httpClient.GetAsync(request + "GetAllProfile"))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                registers = JsonConvert.DeserializeObject<List<RegisterVM>>(apiResponse);
+            }
+            return registers;
+        }
+
+        public async Task<RegisterVM> GetById(string userId)
+        {
+            RegisterVM register = new RegisterVM();
+
+            using (var response = await httpClient.GetAsync(request + "GetById/" + userId))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                register = JsonConvert.DeserializeObject<RegisterVM>(apiResponse);
+            }
+            return register;
+        }
+
         public string Register(RegisterVM registerVM)
         {
             StringContent content = new StringContent(JsonConvert.SerializeObject(registerVM), Encoding.UTF8, "application/json");
