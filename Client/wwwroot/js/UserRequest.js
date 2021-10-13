@@ -2,6 +2,10 @@
 ////    $('.datepicker').datepicker({
 ////        startDate: '-3d'
 ////    });
+
+const { table } = require("console");
+const { forEach } = require("core-js/fn/dict");
+
 ////});
 $(function () {
     $('#dateOvertime').datepicker({
@@ -142,9 +146,11 @@ function fillTable() {
     var UserId = $('#userid').val();
     var JobTask = $('#jobtask').val();
     var Date = $('#dateOvertime').val();
-    var StartTime = $('#startTime').val();
-    var EndTime = $('#endTime').val();
-    var Description = $('#desc').val();
+    var StartTime = $('#inputstarttime').val();
+    var EndTime = $('#inputendtime').val();
+    var time = EndTime - StartTime;
+    var Description = $('#desc').val;
+    console.log(time);
 
     var rowHtml = '<tr><td><input type="checkbox" name="ID" value="@employee.ID" class="custom-checkbox chkCheckBoxId" /></td><td>' + UserId + '</td><td>' + JobTask + '</td><td>' + Date + '</td><td>' + StartTime + '</td><td>' + EndTime + '</td><td>' + Description + '</td><td>';
 
