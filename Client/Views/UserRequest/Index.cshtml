@@ -1,0 +1,34 @@
+﻿@{
+    Layout = "~/Views/Shared/Template/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <p class="h1 col-8">Requester</p>
+            </div>
+        </div>
+        <div class="card-body">
+            <table id="tableClient" class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Employee ID</th>
+                        <th>Name</th>
+                        <th>Date Request</th>
+                        <th>Job Task</th>
+                        <th>Action</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="bodyClient">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/UserRequest.js"></script>
+
+}

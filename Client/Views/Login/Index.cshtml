@@ -1,0 +1,48 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{ Layout = "~/Views/Shared/Template/_LayoutLogin.cshtml"; }
+<div class="container mt--8 pb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+            <div class="card bg-secondary border-0 mb-0">
+                <div class="card-body px-lg-5 py-lg-5">
+                    <h1 class="login-box-msg">Login</h1>
+                    <form form class="user" method="post" asp-controller="Login" asp-action="Auth">
+                        <div class="input-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Email" type="email" name="email">
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group input-group-merge input-group-alternative">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                                </div>
+                                <input class="form-control" placeholder="Password" type="password" name="password">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- /.col -->
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-6">
+                    <a asp-area="" asp-controller="ForgotPassword" asp-action="Index" class="text-light"><medium>Forgot password?</medium></a>
+                </div>
+                <div class="col-6 text-right">
+                    <a asp-area="" asp-controller="Register" asp-action="Index" class="text-light"><medium>Create new account</medium></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
