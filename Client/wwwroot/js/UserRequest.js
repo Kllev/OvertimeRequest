@@ -96,40 +96,61 @@ $(function () {
 //        ]
 //    });
 //});
-function insert() {
-    var obj = {
-        "UserId":$('#userid').val(),
-        "JobTask": $('#jobtask').val(),
-        "Description": $('#desc').val(),
-        "Date": $('#dateOvertime').val(),
-        "EndTime": $('#startTime').val(),
-        "StartTime": $('#endTime').val(),
-    };
-    console.log(JSON.stringify(obj));
-    $.ajax({
-        url: "UserRequests/PostUserReq",
-        type: 'POST',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(obj),
-        success: function (data) {
-            console.log(data);
-            Swal.fire('Request telah ditambahkan');
-            /*$('#addModal').modal("hide");*/
-            //$('#addModal').hide();
-            //$('.modal-backdrop').remove();
-            //$('#formatRegister').trigger('reset');
-            //$('#myTable').DataTable().ajax.reload();
-        },
-        error: function (xhr, status, error) {
-            Swal.fire({
-                icon: 'error',
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong!'
-            });
-        }
-    })
+//function insert() {
+//    var obj = {
+//        "UserId":$('#userid').val(),
+//        "JobTask": $('#jobtask').val(),
+//        "Description": $('#desc').val(),
+//        "Date": $('#dateOvertime').val(),
+//        "EndTime": $('#startTime').val(),
+//        "StartTime": $('#endTime').val(),
+//    };
+//    console.log(JSON.stringify(obj));
+//    $.ajax({
+//        url: "UserRequests/PostUserReq",
+//        type: 'POST',
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(obj),
+//        success: function (data) {
+//            console.log(data);
+//            Swal.fire('Request telah ditambahkan');
+//            /*$('#addModal').modal("hide");*/
+//            //$('#addModal').hide();
+//            //$('.modal-backdrop').remove();
+//            //$('#formatRegister').trigger('reset');
+//            //$('#myTable').DataTable().ajax.reload();
+//        },
+//        error: function (xhr, status, error) {
+//            Swal.fire({
+//                icon: 'error',
+//                icon: 'error',
+//                title: 'Oops...',
+//                text: 'Something went wrong!'
+//            });
+//        }
+//    })
+//}
+$(document).ready(function () {
+
+    $('#btnFIllReq').on('click', fillTable);
+
+});
+
+function fillTable() {
+    // get values form dropdown and text boxes
+    var UserId = $('#userid').val();
+    var JobTask = $('#jobtask').val();
+    var Date = $('#dateOvertime').val();
+    var StartTime = $('#startTime').val();
+    var EndTime = $('#endTime').val();
+    var Description = $('#desc').val();
+
+    var rowHtml = '<tr><td><input type="checkbox" name="ID" value="@employee.ID" class="custom-checkbox chkCheckBoxId" /></td><td>' + UserId + '</td><td>' + JobTask + '</td><td>' + Date + '</td><td>' + StartTime + '</td><td>' + EndTime + '</td><td>' + Description + '</td><td>';
+
+    // lets suppose table id is 'tblViewRecords'
+
+    $('#myTable tbody').append(rowHtml);
 }
 
 $(document).ready(function () {
@@ -143,3 +164,8 @@ $(document).ready(function () {
         }
     });
 });
+
+$("#deletebtn").click(function (event) {
+    event.preventDefault();
+    var row = table.row(this.closest('tr')).data();
+})

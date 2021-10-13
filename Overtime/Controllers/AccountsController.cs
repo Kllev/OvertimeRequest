@@ -59,6 +59,18 @@ namespace Overtime.Controllers
             }
 
         }
+        [HttpGet("GetManager")]
+        public ActionResult GetManagerName()
+        {
+            var get = repository.GetManagerName();
+            if (get != null)
+            {
+                return Ok(repository.GetManagerName());
+            }
+
+            return NotFound("Tidak ada Data");
+
+        }
         [HttpPost("Login")]
         public ActionResult Login(LoginVM login)
         {

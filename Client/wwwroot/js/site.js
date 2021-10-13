@@ -49,6 +49,22 @@ $("#registerBtn").click(function (event) {
         })
     });
 })
+
+$.ajax({
+    url: "https://localhost:44330/api/accounts/getmanager",
+}).done(result => {
+    text = ''
+    console.log(result)
+    $.each(result, function (key, value) {
+        console.log(value.id)
+        console.log(value.fullName)
+        text += `<option value= "${value.id}">${value.fullName}</option>`
+    })
+    $('#inputmanager').html(text)
+}).fail(result => {
+    console.log("gagal")
+});
+
 $(function () {
     var $password = $(".form-control[type='password']");
     var $passwordAlert = $(".password-alert");
@@ -73,7 +89,6 @@ $(function () {
         else if (val.length > 7) {
             leng = true;
         }
-
 
         if (val.toLowerCase() == val) {
             bigLetter = false;
