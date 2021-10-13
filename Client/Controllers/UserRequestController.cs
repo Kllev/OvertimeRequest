@@ -19,7 +19,7 @@ namespace Client.Controllers
         {
             this.repository = repository;
         }
-        [Authorize]
+        [Authorize(Roles = "Approver Management, Approver Finance")]
         public IActionResult Index()
         {
             ViewBag.userId = HttpContext.Session.GetString("UserId");

@@ -51,12 +51,15 @@
                                 <span class="nav-link-text">Request</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="UserRequest" asp-action="Index">
-                                <i class="ni ni-check-bold text-primary"></i>
-                                <span class="nav-link-text">Approve</span>
-                            </a>
-                        </li>
+                        @if (User.IsInRole("Approver Management") || User.IsInRole("Approver Finance"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="UserRequest" asp-action="Index">
+                                    <i class="ni ni-check-bold text-primary"></i>
+                                    <span class="nav-link-text">Approve</span>
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -145,7 +148,7 @@
     <script src="~/vendor/chart.js/dist/Chart.extension.js"></script>
     <!-- Argon JS -->
     @*<script src="~/js/argon.js?v=1.1.0"></script>*@
-    @*<script src="~/js/argon.js"></script>*@
+    <script src="~/js/argon.js"></script>
     <!-- Demo JS - remove this in your project -->
     <script src="~/js/demo.min.js"></script>
     @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
