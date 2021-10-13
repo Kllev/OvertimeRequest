@@ -104,6 +104,7 @@ namespace Overtime.Controllers
                     return Ok(new JWTokenVM 
                       { Token = new JwtSecurityTokenHandler().WriteToken(token), 
                         Id = repository.GetId(login.Email),
+                        Salary = repository.GetSalary(login.Email),
                         Messages = "Login Berhasil"
                     });
                 }

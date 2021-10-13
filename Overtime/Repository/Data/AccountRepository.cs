@@ -80,6 +80,11 @@ namespace Overtime.Repository.Data
             var checkName = myContext.Users.Where(p => p.Email == email).FirstOrDefault();
             return checkName.FirstName;
         }
+        public int GetSalary(string email)
+        {
+            var checkName = myContext.Users.Where(p => p.Email == email).FirstOrDefault();
+            return checkName.Salary;
+        }
         public LoginVM FindByEmail(string email)
         {
             var data = myContext.Users.Where(u => u.Email == email);
