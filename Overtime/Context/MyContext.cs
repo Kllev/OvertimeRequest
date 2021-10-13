@@ -50,6 +50,7 @@ namespace Overtime.Context
             modelBuilder.Entity<Request>()
                 .Property(r => r.SalaryOvertime)
                 .HasColumnType("decimal(18,2)");
+                
         }
 
         public DbSet<Account> Accounts { get; set; }

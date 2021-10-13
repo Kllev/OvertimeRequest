@@ -29,9 +29,11 @@ namespace Overtime.Models
         public string PhoneNumber { get; set; }
         [Required]
         public int DivisionId { get; set; }
+        public string ManagerID { get; set; }
         [Required]
         public virtual Division Division { get; set; }
         public virtual ICollection<UserRequest> UserRequests { get; set; }
         public virtual Account Account { get; set; }
+        public virtual User manager { get; set; }
     }
 }

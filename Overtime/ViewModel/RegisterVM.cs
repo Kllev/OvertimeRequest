@@ -34,5 +34,6 @@ namespace Overtime.ViewModel
         public string Password { get; set; }
         [Required]
         public int DivisionID { get; set; }
+        public string ManagerID { get; set; }
     }
 }
