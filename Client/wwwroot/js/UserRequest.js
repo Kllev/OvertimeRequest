@@ -43,7 +43,27 @@ $(function () {
         });
     }, false);
 })();
+$(document).ready(function () {
 
+    $('#btnFIllReq').on('click', fillTable);
+
+});
+
+function fillTable() {
+    // get values form dropdown and text boxes
+    var UserId = $('#userid').val();
+    var JobTask = $('#jobtask').val();
+    var Date = $('#dateOvertime').val();
+    var StartTime = $('#startTime').val();
+    var EndTime = $('#endTime').val();
+    var Description = $('#desc').val();
+
+    var rowHtml = '<td></td ><td>' + UserId + '</td><td>' + JobTask + '</td><td>' + Date + '</td><td>' + StartTime + '</td><td>' + EndTime + '</td><td>' + Description + '</td><td>';
+
+    // lets suppose table id is 'tblViewRecords'
+
+    $('#myTable tbody').append(rowHtml);
+}
 //$(document).ready(function () {
 //    $('#myTable').DataTable({
 //        "filter": true,
