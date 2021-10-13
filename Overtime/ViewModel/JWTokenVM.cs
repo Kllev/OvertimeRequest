@@ -11,5 +11,6 @@ namespace Overtime.ViewModel
         public string Token { get; set; }
         public string Id { get; set; }
         public string firstName { get; set; }
+        public int Salary { get; set; }
     }
 }
