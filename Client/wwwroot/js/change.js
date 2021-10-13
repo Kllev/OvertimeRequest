@@ -94,7 +94,7 @@ $("#changebtn").click(function (event) {
             title: 'Success!',
             text: 'Change Password Success',
             icon: 'success',
-        });
+        }).then(result => window.location = '/Home/Index');
     }).fail((result) => {
         Swal.fire({
             title: 'Error!',

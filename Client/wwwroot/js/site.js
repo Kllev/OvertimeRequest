@@ -137,7 +137,7 @@ $("#forgotbtn").click(function (event) {
             title: 'Success!',
             text: 'You Have Been Registered',
             icon: 'success',
-        });
+        }).then(result => window.location = '/Login/Index');
     }).fail((result) => {
         Swal.fire({
             title: 'Error!',
