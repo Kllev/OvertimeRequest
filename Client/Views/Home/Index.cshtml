@@ -9,7 +9,7 @@
                 @*<div class="col-md-6 mb-3">
 
                     </div>*@
-                <div class="col-xl-4 order-xl-2">
+                <div class="col-xl-3 order-xl-2">
                     <div class="card">
                         <div class="card-header">
                             <div class="request-form">
@@ -74,14 +74,13 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                    <button class="btn btn-primary" id="btnSubmit" type="submit">Submit</button>
+                                    <button class="btn btn-primary" id="btnFIllReq" type="button">Submit</button>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-8 order-xl-2">
+                <div class="col-xl-9 order-xl-2">
                     <div class="card">
                         <div class="card-header">
                             <div class="table-wrap">
@@ -91,11 +90,11 @@
                                             <th>
                                                 <input type="checkbox" id="checkBoxAll" class="custom-checkbox" />
                                             </th>
-                                            <th>No.</th>
-                                            <th>RequestId</th>
+                                            <th>UserId</th>
                                             <th>JobTask</th>
                                             <th>Date Overtime</th>
-                                            <th>Time</th>
+                                            <th>StartTime</th>
+                                            <th>EndTime</th>
                                             <th>Desc</th>
                                         </tr>
                                     </thead>
@@ -105,7 +104,7 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <button type="submit" value="Delete" 
+                            <button id="deletebtn" type="submit" value="Delete" 
                                     class="btn btn-sm btn-danger rounded-0">
                             Delete
                             </button>
