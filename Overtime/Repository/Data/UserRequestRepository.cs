@@ -48,7 +48,7 @@ namespace Overtime.Repository.Data
         public double HitungSalary(int time, int salary)
         {
             double salaryOT = 0;
-            double ket = 1 / 173;
+            double ket = 0.00578034;
             if (time == 1)
             {
                 salaryOT += 1 * 1.5 * ket * salary;

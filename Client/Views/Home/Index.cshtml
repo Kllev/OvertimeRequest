@@ -1,6 +1,10 @@
 ﻿@{
     Layout = "~/Views/Shared/Template/_Layout.cshtml";
 }
+@*<script>
+    var salary = '@ViewBag.salary';
+    var manager = '@ViewBag.manager';
+</script>*@
 
 <div id="request" class="section">
     <div class="section-center">
@@ -18,13 +22,11 @@
                                 </div>
                                 <form class="needs-validation" id="formRequest" novalidate>
                                     <div class="form-row">
-                                        @{ var iden = User.Identity.IsAuthenticated; }
-                                        @if (iden)
-                                        {
-                                            <div class="col-md mb-3">
-                                                <input type="text" readonly class="form-control" id="userid" value="@ViewBag.UserId" autocomplete="off" required>
-                                            </div>
-                                        }
+                                        <div class="col-md mb-3">
+                                            <input type="hidden" readonly class="form-control" id="salary" value="@ViewBag.salary" autocomplete="off" required>
+                                            <input type="hidden" readonly class="form-control" id="manager" value="@ViewBag.manager" autocomplete="off" required>
+                                            <input type="text" readonly class="form-control" id="userid" value="@ViewBag.UserId" autocomplete="off" required>
+                                        </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col-md mb-3">
@@ -53,13 +55,13 @@
                                         <div class="col-md-6 mb-3">
                                             <label for="starttime">Start Time</label>
                                             <select id="inputstarttime" name="starttime" class="form-control">
-                                                <option value="17">17:00</option>
-                                                <option value="18:00">18:00</option>
-                                                <option value="19:00">19:00</option>
-                                                <option value="20:00">20:00</option>
-                                                <option value="21:00">21:00</option>
-                                                <option value="22:00">22:00</option>
-                                                <option value="23:00">23:00</option>
+                                                <option value="5">17:00</option>
+                                                <option value="6">18:00</option>
+                                                <option value="7">19:00</option>
+                                                <option value="8">20:00</option>
+                                                <option value="9">21:00</option>
+                                                <option value="10">22:00</option>
+                                                <option value="11">23:00</option>
                                             </select>
                                             <div class="invalid-feedback">
                                                 Looks good!
@@ -68,13 +70,13 @@
                                         <div class="col-md-6 mb-3">
                                             <label for="endtime">End Time</label>
                                             <select id="inputendtime" name="endtime" class="form-control">
-                                                <option value="18:00">18:00</option>
-                                                <option value="19:00">19:00</option>
-                                                <option value="20:00">20:00</option>
-                                                <option value="21:00">21:00</option>
-                                                <option value="22:00">22:00</option>
-                                                <option value="23:00">23:00</option>
-                                                <option value="24:00">24:00</option>
+                                                <option value="6">18:00</option>
+                                                <option value="7">19:00</option>
+                                                <option value="8">20:00</option>
+                                                <option value="9">21:00</option>
+                                                <option value="10">22:00</option>
+                                                <option value="11">23:00</option>
+                                                <option value="12">24:00</option>
                                             </select>
                                             <div class="valid-feedback">
                                                 Looks good!

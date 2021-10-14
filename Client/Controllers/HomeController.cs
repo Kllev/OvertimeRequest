@@ -27,6 +27,8 @@ namespace Client.Controllers
             {
                 ViewBag.userId = HttpContext.Session.GetString("UserId");
                 ViewBag.firstName = HttpContext.Session.GetString("FirstName");
+                ViewBag.salary = HttpContext.Session.GetInt32("Salary");
+                ViewBag.manager = HttpContext.Session.GetString("Manager");
                 return View();
             }
             //jika belom login

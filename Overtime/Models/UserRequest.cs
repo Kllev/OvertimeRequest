@@ -24,9 +24,9 @@ namespace Overtime.Models
         [Required]
         public DateTime Date { get; set; }
         [Required]
-        public DateTime EndTime { get; set; }
+        public int EndTime { get; set; }
         [Required]
-        public DateTime StartTime { get; set; }
+        public int StartTime { get; set; }
         
         public virtual User User { get; set; }
         
