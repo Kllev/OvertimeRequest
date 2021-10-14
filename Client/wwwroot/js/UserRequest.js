@@ -2,10 +2,6 @@
 ////    $('.datepicker').datepicker({
 ////        startDate: '-3d'
 ////    });
-
-const { table } = require("console");
-const { forEach } = require("core-js/fn/dict");
-
 ////});
 $(function () {
     $('#dateOvertime').datepicker({
@@ -47,7 +43,117 @@ $(function () {
         });
     }, false);
 })();
+$(document).ready(function () {
 
+    $('#btnFIllReq').on('click', fillTable);
+});
+
+function fillTable() {
+    // get values form dropdown and text boxes
+    //dibikin list
+    let obj = [{
+        UserId : $('#userid').val(),
+        JobTask : $('#jobtask').val(),
+        Date : $('#dateOvertime').val(),
+        StartTime : $('#startTime').val(),
+        EndTime : $('#endTime').val(),
+        Description : $('#desc').val()
+    }]
+    //di foreach
+    var rowHtml = "";
+    let requestVM = objReq[i];
+    obj.forEach(function (req) {
+        rowHtml += '<tr></tr><td></td><td>' + req.UserId + '</td><td>' + req.JobTask + '</td><td>' + req.Date + '</td><td>' + req.StartTime + '</td><td>' + req.EndTime + '</td><td>' + req.Description + '</td>';
+        //let objReq = {
+        //    "UserId": req.UserId,
+        //    "JobTask": req.JobTask,
+        //    "Description": req.Description,
+        //    "Date": req.Date,
+        //    "EndTime": req.EndTime,
+        //    "StartTime": req.StartTime
+        //};
+        //insertReq(requestVM, objReq[1]);
+    });
+    for (var i = 0; i < objReq.length; i++) {
+        var row= data.rows[i]
+        let objReq = {
+            "UserId": obj.UserId,
+            "JobTask": obj.JobTask,
+            "Description": obj.Description,
+            "Date": obj.Date,
+            "EndTime": obj.EndTime,
+            "StartTime": obj.StartTime
+        };
+        requestVM.push(objReq);
+    }
+    // lets suppose table id is 'tblViewRecords'
+    //tampilkan
+    $('#myTable tbody').append(rowHtml);
+    console.log(requestVM);
+    $('#btnReq').on('click', sendReq(requestVM));
+}
+function insertReq(arr, ...item) {
+    arr.push(...item);
+}
+function sendReq(obj) {
+
+    console.log(JSON.stringify(obj));
+    $.ajax({
+        url: "/Persons/PostReg",
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(obj),
+        success: function (data) {
+            console.log(data);
+            Swal.fire('Registration Success');
+            /*$('#addModal').modal("hide");*/
+            $('#addModal').hide();
+            $('.modal-backdrop').remove();
+            $('#formatRegister').trigger('reset');
+            $('#myTable').DataTable().ajax.reload();
+        },
+        error: function (xhr, status, error) {
+            Swal.fire({
+                icon: 'error',
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!'
+            });
+        }
+    })
+}
+//function hitungSalaryOT() {
+//    var Time = 0;
+//    var Salary = $("#salary").val();
+//    var SalaryOT = 0;
+//    var date = $("#dateOvertime").val();
+
+//    if (date.getDay() = weekend) {
+//        if (Time <= 8) {
+//            SalaryOT = Time * 2 * (1 / 173) * Salary;
+//            return SalaryOT
+//        } else if (Time > 8 && Time <= 9) {
+//            SalaryOT = 8 * 2 * (1 / 173) * Salary;
+//            SalaryOT += 1 * 3 * (1 / 173) * Salary;
+//            return SalaryOT
+//        } else (Time > 9){
+//            SalaryOT = 8 * 2 * (1 / 173) * Salary;
+//            SalaryOT += 1 * 3 * (1 / 173) * Salary;
+//            SalaryOT += (Time - 9) * 4 * (1 / 173) * Salary;
+//            return SalaryOT
+//        }
+//    } else {
+//        if (row = 1) {
+//            SalaryOT = Time * 1.5 * (1 / 173) * Salary;
+//            return SalaryOT;
+//        } else (row >= 1) {
+//            SalaryOT += Time * 2 * (1 / 173) * Salary;
+//            return SalaryOT;
+//        }
+//    }
+    
+//}
 //$(document).ready(function () {
 //    $('#myTable').DataTable({
 //        "filter": true,
@@ -135,30 +241,6 @@ $(function () {
 //        }
 //    })
 //}
-$(document).ready(function () {
-
-    $('#btnFIllReq').on('click', fillTable);
-
-});
-
-function fillTable() {
-    // get values form dropdown and text boxes
-    var UserId = $('#userid').val();
-    var JobTask = $('#jobtask').val();
-    var Date = $('#dateOvertime').val();
-    var StartTime = $('#inputstarttime').val();
-    var EndTime = $('#inputendtime').val();
-    var time = EndTime - StartTime;
-    var Description = $('#desc').val;
-    console.log(time);
-
-    var rowHtml = '<tr><td><input type="checkbox" name="ID" value="@employee.ID" class="custom-checkbox chkCheckBoxId" /></td><td>' + UserId + '</td><td>' + JobTask + '</td><td>' + Date + '</td><td>' + StartTime + '</td><td>' + EndTime + '</td><td>' + Description + '</td><td>';
-
-    // lets suppose table id is 'tblViewRecords'
-
-    $('#myTable tbody').append(rowHtml);
-}
-
 $(document).ready(function () {
     $('#DataTable').DataTable();
     $('#checkBoxAll').click(function () {
