@@ -138,31 +138,15 @@ function detail(id) {
         console.log(id);
         console.log(result);
         //menampil kan data
-        var text = "";
-        $.each(result.results, function (key, val) {
-            text += `<div class="col-4 ">
-                        <ul>
-                            <li class="list-group">UserId</li>
-                            <li class="list-group">JobTask</li>
-                            <li class="list-group">Date</li>
-                            <li class="list-group">StartTime</li>
-                            <li class="list-group">EndTime</li>
-                            <li class="list-group">Description</li>
-                        </ul>
-                    </div>
-                    <div class="col-8">
-                        <ul>
-                    <li class="list-group">: ${result.UserId}</li>
-                    <li class="list-group">: ${result.JobTask}</li>
-                    <li class="list-group">: ${result.Date}</li>
-                    <li class="list-group">: ${result.StartTime}</li>
-                    <li class="list-group">: ${result.EndTime}</li>
-                    <li class="list-group">: ${result.Description}</li>
-                </ul>
-                    </div>`;
+        var rowHtml = "";
+        result.forEach(function (req) {
+            rowHtml += '<tr></tr><td></td><td>' + req.userId + '</td><td>' + req.jobTask + '</td><td>' + req.date + '</td><td>' + req.startTime + ":00" + '</td><td>' + req.endTime + ":00" + '</td><td>' + req.time + '</td><td>' + req.description + '</td>';
+        });
+        //tampilkan
+        $('#tableDetail tbody').append(rowHtml);
         });
         //$("#dataModal").modal('show');
-        $("#data").html(text);
+/*        $("#data").html(text);*/
     }).fail((result) => {
         console.log(result);
     });
@@ -205,7 +189,7 @@ function remove(id) {
         }
     })
 }
-let Request = []
+let Request = [];
 
 function fillTable() {
     //dibikin list
