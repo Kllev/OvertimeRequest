@@ -51,10 +51,19 @@
                                 <span class="nav-link-text">Request</span>
                             </a>
                         </li>
-                        @if (User.IsInRole("Approver Management") || User.IsInRole("Approver Finance"))
+                        @if (User.IsInRole("Approver Management"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="UserRequest" asp-action="Index">
+                                    <i class="ni ni-check-bold text-primary"></i>
+                                    <span class="nav-link-text">Approve</span>
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Approver Finance"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Approver" asp-action="Index">
                                     <i class="ni ni-check-bold text-primary"></i>
                                     <span class="nav-link-text">Approve</span>
                                 </a>

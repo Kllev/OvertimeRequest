@@ -11,15 +11,15 @@ using System.Threading.Tasks;
 
 namespace Client.Controllers
 {
-    public class UserRequestController : BaseController<UserRequest, UserRequestRepository, int>
+    public class ApproverController : BaseController<UserRequest, ApproverRepository, int>
     {
-        private readonly UserRequestRepository repository;
+        private readonly ApproverRepository repository;
 
-        public UserRequestController(UserRequestRepository repository) : base(repository)
+        public ApproverController(ApproverRepository repository) : base(repository)
         {
             this.repository = repository;
         }
-        [Authorize(Roles = "Approver Management")]
+        [Authorize(Roles = "Approver Finance")]
         public IActionResult Index()
         {
             ViewBag.userId = HttpContext.Session.GetString("UserId");
