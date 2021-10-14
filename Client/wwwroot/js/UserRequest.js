@@ -120,12 +120,17 @@ $(document).ready(function () {
             $(".chkCheckBoxId").prop("checked", false)
         }
     });
-    $('#btnFIllReq').on('click', fillTable);
     $('#DataTable').DataTable({
 
     });
 
 });
+
+$(document).ready(function () {
+
+    $('#btnFIllReq').on('click', fillTable);
+});
+
 function detail(id) {
     $.ajax({
         url: "https://localhost:44330/API/UserRequests/GetUserReq/" + id,
@@ -201,6 +206,7 @@ function remove(id) {
     })
 }
 let Request = [];
+
 function fillTable() {
     //dibikin list
     let requested = []
