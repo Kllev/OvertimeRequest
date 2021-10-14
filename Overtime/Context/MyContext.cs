@@ -18,7 +18,7 @@ namespace Overtime.Context
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<AccountRole>()
-                .HasKey(ar => new { ar.AccountId, ar.RoleId });
+                .HasKey(ar => new { ar.Id});
             modelBuilder.Entity<AccountRole>()
                 .HasOne(ar => ar.Account)
                 .WithMany(a => a.AccountRoles)
@@ -38,7 +38,7 @@ namespace Overtime.Context
                 .WithOne(a => a.User)
                 .HasForeignKey<Account>(a => a.Id);
             modelBuilder.Entity<UserRequest>()
-                .HasKey(ur => new { ur.UserId, ur.RequestId });
+                .HasKey(ur => new { ur.Id});
             modelBuilder.Entity<UserRequest>()
                 .HasOne(u => u.User)
                 .WithMany(ur => ur.UserRequests)
@@ -47,9 +47,6 @@ namespace Overtime.Context
                 .HasOne(r => r.Request)
                 .WithMany(ur => ur.UserRequests)
                 .HasForeignKey(ur => ur.RequestId);
-            modelBuilder.Entity<Request>()
-                .Property(r => r.SalaryOvertime)
-                .HasColumnType("decimal(18,2)");
                 
         }
 

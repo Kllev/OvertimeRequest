@@ -47,7 +47,7 @@ namespace Overtime.Repository.Data
                     Salary = register.Salary,
                     Email = register.Email,
                     DivisionId = register.DivisionID,
-                    ManagerID = register.ManagerID 
+                    ManagerID = register.ManagerID
                 };
                 myContext.Add(user);
                 insert = myContext.SaveChanges();

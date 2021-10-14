@@ -55,13 +55,12 @@ namespace Overtime.Base
         {
             if (repository.Get() != null)
             {
-
-                return Ok(new
-                {
-                    status = HttpStatusCode.OK,
-                    data = repository.Get(),
-                    message = "Data berhasil Di tampilkan"
-                });
+                return Ok(repository.Get());
+                //return Ok(new
+                //{
+                //    data = repository.Get(),
+                //    message = "Data berhasil Di tampilkan"
+                //});
             }
             else
             {
@@ -75,13 +74,13 @@ namespace Overtime.Base
             if (repository.Get(key) != null)
             {
 
-                //return Ok(personRepository.Get(NIK));
-                return Ok(new
-                {
-                    status = HttpStatusCode.OK,
-                    data = repository.Get(key),
-                    message = "Data berhasil Di tampilkan"
-                });
+                return Ok(repository.Get(key));
+                //return Ok(new
+                //{
+                //    status = HttpStatusCode.OK,
+                //    data = repository.Get(key),
+                //    message = "Data berhasil Di tampilkan"
+                //});
             }
             return NotFound(new
             {

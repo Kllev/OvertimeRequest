@@ -1,15 +1,9 @@
-﻿////$(document).ready(function () {
-////    $('.datepicker').datepicker({
-////        startDate: '-3d'
-////    });
-
-////});
-$(function () {
+﻿$(function () {
     $('#dateOvertime').datepicker({
         startDate: '-3d',
         endDate: '0d',
         todayHighlight: 'TRUE',
-        format: 'dd/mm/yyyy'
+        format: 'yyyy/mm/dd'
     });
 });
 (function () {
@@ -45,203 +39,237 @@ $(function () {
     }, false);
 })();
 $(document).ready(function () {
-
-    $('#btnFIllReq').on('click', fillTable);
-});
-
-function fillTable() {
-    // get values form dropdown and text boxes
-    //dibikin list
-    let obj = [{
-        UserId : $('#userid').val(),
-        JobTask : $('#jobtask').val(),
-        Date : $('#dateOvertime').val(),
-        StartTime : $('#startTime').val(),
-        EndTime : $('#endTime').val(),
-        Description : $('#desc').val()
-    }]
-    //di foreach
-    var rowHtml = "";
-    let requestVM = objReq[i];
-    obj.forEach(function (req) {
-        rowHtml += '<tr></tr><td></td><td>' + req.UserId + '</td><td>' + req.JobTask + '</td><td>' + req.Date + '</td><td>' + req.StartTime + '</td><td>' + req.EndTime + '</td><td>' + req.Description + '</td>';
-        //let objReq = {
-        //    "UserId": req.UserId,
-        //    "JobTask": req.JobTask,
-        //    "Description": req.Description,
-        //    "Date": req.Date,
-        //    "EndTime": req.EndTime,
-        //    "StartTime": req.StartTime
-        //};
-        //insertReq(requestVM, objReq[1]);
-    });
-    for (var i = 0; i < objReq.length; i++) {
-        var row= data.rows[i]
-        let objReq = {
-            "UserId": obj.UserId,
-            "JobTask": obj.JobTask,
-            "Description": obj.Description,
-            "Date": obj.Date,
-            "EndTime": obj.EndTime,
-            "StartTime": obj.StartTime
-        };
-        requestVM.push(objReq);
-    }
-    // lets suppose table id is 'tblViewRecords'
-    //tampilkan
-    $('#myTable tbody').append(rowHtml);
-    console.log(requestVM);
-    $('#btnReq').on('click', sendReq(requestVM));
-}
-function insertReq(arr, ...item) {
-    arr.push(...item);
-}
-function sendReq(obj) {
-
-    console.log(JSON.stringify(obj));
-    $.ajax({
-        url: "/Persons/PostReg",
-        type: 'POST',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(obj),
-        success: function (data) {
-            console.log(data);
-            Swal.fire('Registration Success');
-            /*$('#addModal').modal("hide");*/
-            $('#addModal').hide();
-            $('.modal-backdrop').remove();
-            $('#formatRegister').trigger('reset');
-            $('#myTable').DataTable().ajax.reload();
+    $('#tableClient').DataTable({
+        "filter": true,
+        "ajax": {
+            "url": 'https://localhost:44330/API/Requests',
+            "datatype": "json",
+            "dataSrc": ""
         },
-        error: function (xhr, status, error) {
-            Swal.fire({
-                icon: 'error',
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong!'
-            });
+        "dom": 'Bfrtip',
+        "buttons": [
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                },
+                className: 'btn btn-sm btn-outline-secondary',
+                bom: true
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+
+                },
+                className: 'btn btn-sm btn-outline-secondary',
+                bom: true
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                },
+                className: 'btn btn-sm btn-outline-secondary',
+                bom: true
+            },
+        ],
+        "columns": [
+            {
+                "data": null,
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                },
+                /*"autoWidth": true,*/
+                "orderable": false
+            },
+            { "data": "id", "autoWidth": true },
+            { "data": "statusName", "autoWidth": true },
+            {
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+
+                    return row["requestDate"].slice(0,10);
+                },
+                "autoWidth": true
+            },
+            { "data": "salaryOvertime", "autoWidth": true },
+            {
+                "render": function (data, type, row) {
+                    return `<button type="button"
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                        onclick="detail('${row["id"]}')">Detail</button></td>
+                        <button type="button"
+                        class="btn btn-danger"
+                        onclick="remove('${row["id"]}')">Delete</button></td>
+                        `;
+                },
+                "autoWidth": true,
+                "orderable": false
+            }
+        ]
+    });
+    $('#checkBoxAll').click(function () {
+        if ($(this).is(":checked")) {
+            $(".chkCheckBoxId").prop("checked", true)
+        }
+        else {
+            $(".chkCheckBoxId").prop("checked", false)
+        }
+    });
+    $('#btnFIllReq').on('click', fillTable);
+    $('#DataTable').DataTable({
+
+    });
+
+});
+function detail(id) {
+    $.ajax({
+        url: "https://localhost:44330/API/UserRequests/GetUserReq/" + id,
+    }).done((result) => {
+        console.log(id);
+        console.log(result);
+        //menampil kan data
+        var text = "";
+        $.each(result.results, function (key, val) {
+            text += `<div class="col-4 ">
+                        <ul>
+                            <li class="list-group">UserId</li>
+                            <li class="list-group">JobTask</li>
+                            <li class="list-group">Date</li>
+                            <li class="list-group">StartTime</li>
+                            <li class="list-group">EndTime</li>
+                            <li class="list-group">Description</li>
+                        </ul>
+                    </div>
+                    <div class="col-8">
+                        <ul>
+                    <li class="list-group">: ${result.UserId}</li>
+                    <li class="list-group">: ${result.JobTask}</li>
+                    <li class="list-group">: ${result.Date}</li>
+                    <li class="list-group">: ${result.StartTime}</li>
+                    <li class="list-group">: ${result.EndTime}</li>
+                    <li class="list-group">: ${result.Description}</li>
+                </ul>
+                    </div>`;
+        });
+        //$("#dataModal").modal('show');
+        $("#data").html(text);
+    }).fail((result) => {
+        console.log(result);
+    });
+};
+function remove(id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            //let val = document.getElementById('nik');
+            //console.log(nik);
+            //val.remove();
+            $.ajax({
+                url: "https://localhost:44330/API/Requests/" + id,
+                method: 'DELETE',
+                success: function () {
+                    console.log(id);
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                    $('#tableClient').DataTable().ajax.reload();
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!'
+                    });
+                }
+            })
         }
     })
 }
-//function hitungSalaryOT() {
-//    var Time = 0;
-//    var Salary = $("#salary").val();
-//    var SalaryOT = 0;
-//    var date = $("#dateOvertime").val();
+function fillTable() {
+    //dibikin list
+    let requested = []
+    var obj = new Object()
+    obj.UserId = $('#userid').val();
+    obj.JobTask = $('#jobtask').val();
+    obj.Date = $('#dateOvertime').val();
+    obj.StartTime = parseInt($("#inputstarttime").val());
+    obj.EndTime = parseInt($("#inputendtime").val());
+    obj.timeperhitungan = parseInt($("#inputendtime").val()) - parseInt($("#inputstarttime").val());
+    obj.Description = $('#desc').val()
+    console.log(obj)
+    Request.push(obj)
+    requested.push(obj)
+    console.log(Request)
+    //di foreach
+    var rowHtml = "";
+    requested.forEach(function (req) {
+        rowHtml += '<tr></tr><td></td><td>' + req.UserId + '</td><td>' + req.JobTask + '</td><td>' + req.Date + '</td><td>' + req.StartTime + ":00" + '</td><td>' + req.EndTime + ":00" + '</td><td>' + req.Description + '</td>';
+        let objReq = {
+            "UserId": req.UserId,
+            "JobTask": req.JobTask,
+            "Description": req.Description,
+            "Date": req.Date,
+            "EndTime": req.EndTime,
+            "StartTime": req.StartTime
+        };
+    });
+    //tampilkan
+    $('#myTable tbody').append(rowHtml);
+}
 
-//    if (date.getDay() = weekend) {
-//        if (Time <= 8) {
-//            SalaryOT = Time * 2 * (1 / 173) * Salary;
-//            return SalaryOT
-//        } else if (Time > 8 && Time <= 9) {
-//            SalaryOT = 8 * 2 * (1 / 173) * Salary;
-//            SalaryOT += 1 * 3 * (1 / 173) * Salary;
-//            return SalaryOT
-//        } else (Time > 9){
-//            SalaryOT = 8 * 2 * (1 / 173) * Salary;
-//            SalaryOT += 1 * 3 * (1 / 173) * Salary;
-//            SalaryOT += (Time - 9) * 4 * (1 / 173) * Salary;
-//            return SalaryOT
-//        }
-//    } else {
-//        if (row = 1) {
-//            SalaryOT = Time * 1.5 * (1 / 173) * Salary;
-//            return SalaryOT;
-//        } else (row >= 1) {
-//            SalaryOT += Time * 2 * (1 / 173) * Salary;
-//            return SalaryOT;
-//        }
-//    }
-    
-//}
-//$(document).ready(function () {
-//    $('#myTable').DataTable({
-//        "filter": true,
-//        "ajax": {
-//            "url": "/UserRequest/GetAllData",
-//            "datatype": "json",
-//            "dataSrc": ""
-//        },
-//        "dom": 'Bfrtip',
-//        "buttons": [
-//            {
-//                extend: 'excelHtml5',
-//                exportOptions: {
-//                    columns: [1, 2, 3, 4, 5]
-//                },
-//                className: 'btn btn-sm btn-outline-secondary',
-//                bom: true
-//            },
-//            {
-//                extend: 'pdfHtml5',
-//                exportOptions: {
-//                    columns: [1, 2, 3, 4, 5]
+$("#btnSendReq").click(function (event) {
+    event.preventDefault();
+    let sum = 0;
+    for (let i = 0; i < Request.length; i++) {
+        sum += Request[i].timeperhitungan;
+    }
+    var obj = new Object();
+    Request.forEach
+    obj.ApproverName = $('#manager').val();
+    obj.Salary = parseInt($('#salary').val());
+    obj.StatusName = 2;
+    obj.Time = sum;
+    obj.userRequests = Request;
+    console.log(obj);
 
-//                },
-//                className: 'btn btn-sm btn-outline-secondary',
-//                bom: true
-//            },
-//            {
-//                extend: 'print',
-//                exportOptions: {
-//                    columns: [1, 2, 3, 4, 5]
-//                },
-//                className: 'btn btn-sm btn-outline-secondary',
-//                bom: true
-//            },
-//        ],
-//        "columns": [
-//            {
-//                "data": null,
-//                render: function (data, type, row, meta) {
-//                    return meta.row + meta.settings._iDisplayStart + 1;
-//                },
-//                /*"autoWidth": true,*/
-//                "orderable": false
-//            },
-//            { "data": "RequestId", "autoWidth": true },
-//            { "data": "JobTask", "autoWidth": true },
-//            { "data": "Date", "autoWidth": true },
-//            { "data": "time", "autoWidth": true },
-//        ]
-//    });
-//});
-//function insert() {
-//    var obj = {
-//        "UserId":$('#userid').val(),
-//        "JobTask": $('#jobtask').val(),
-//        "Description": $('#desc').val(),
-//        "Date": $('#dateOvertime').val(),
-//        "EndTime": $('#startTime').val(),
-//        "StartTime": $('#endTime').val(),
-//    };
-//    console.log(JSON.stringify(obj));
-//    $.ajax({
-//        url: "UserRequests/PostUserReq",
-//        type: 'POST',
-//        dataType: 'json',
-//        contentType: 'application/json; charset=utf-8',
-//        data: JSON.stringify(obj),
-//        success: function (data) {
-//            console.log(data);
-//            Swal.fire('Request telah ditambahkan');
-//            /*$('#addModal').modal("hide");*/
-//            //$('#addModal').hide();
-//            //$('.modal-backdrop').remove();
-//            //$('#formatRegister').trigger('reset');
-//            //$('#myTable').DataTable().ajax.reload();
-//        },
-//        error: function (xhr, status, error) {
-//            Swal.fire({
-//                icon: 'error',
-//                icon: 'error',
-//                title: 'Oops...',
-//                text: 'Something went wrong!'
-//            });
-//        }
-//    })
-//}
+    $.ajax({
+        url: "https://localhost:44330/api/UserRequests/InsertUserReq",
+        /*url: "/Register/RegisterData",*/
+        type: "POST",
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(obj)
+    }).done((result) => {
+        Swal.fire({
+            title: 'Success!',
+            text: 'You Have Been Submited',
+            icon: 'success',
+        });
+    }).fail((result) => {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Failed To Submit',
+            icon: 'error',
+            confirmButtonText: 'Back'
+        })
+    });
+})
+
 
 $(document).ready(function () {
     $('#DataTable').DataTable();

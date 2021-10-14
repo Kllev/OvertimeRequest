@@ -30,15 +30,15 @@ namespace Overtime.Controllers
             {
                 if (repository.InsertUserReq(requestVM) > 0)
                 {
-                    return Ok(new { status = HttpStatusCode.OK, message = "Data Berhasil ditambahkan" });
+                    return Ok();
                 }
                 else if (repository.InsertUserReq(requestVM) == 0)
                 {
-                    return BadRequest(new { status = HttpStatusCode.BadRequest, message = "Gagal Menambahkan Data" });
+                    return BadRequest();
                 }
                 else
                 {
-                    return BadRequest(new { status = HttpStatusCode.BadRequest, message = "Data Sudah ada" });
+                    return BadRequest();
                 }
             }
             catch (Exception e)
@@ -49,6 +49,19 @@ namespace Overtime.Controllers
                     status = (int)HttpStatusCode.InternalServerError,
                     message = e.InnerException.Message
                 });
+            }
+        }
+        [HttpGet("GetUserReq/{id}")]
+        public ActionResult GetUserReq(int id)
+        {
+            var getRegister = repository.GetUserReqByReqId(id);
+            if (getRegister == null)
+            {
+                return NotFound(getRegister);
+            }
+            else
+            {
+                return Ok(getRegister);
             }
         }
     }
