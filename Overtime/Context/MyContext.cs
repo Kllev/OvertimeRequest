@@ -18,7 +18,7 @@ namespace Overtime.Context
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<AccountRole>()
-                .HasKey(ar => new { ar.AccountId, ar.RoleId });
+                .HasKey(ar => new { ar.Id});
             modelBuilder.Entity<AccountRole>()
                 .HasOne(ar => ar.Account)
                 .WithMany(a => a.AccountRoles)
