@@ -54,6 +54,21 @@ namespace Overtime.Repository.Data
             }
             return roles;
         }
+
+        public IEnumerable<ManagerVM> GetManagerName()
+        {
+            var getname = (from p in myContext.Users
+                           join a in myContext.Accounts on p.Id equals a.Id
+                           join b in myContext.AccountRoles on a.Id equals b.AccountId
+                           where b.RoleId == 2 && p.Id == b.AccountId
+                           select new ManagerVM
+                           {
+                               Id = p.Id,
+                               fullName = p.FirstName + " " + p.LastName 
+                           }).ToList();
+            return getname;
+        }
+
         public LoginVM Login(LoginVM login)
         {
             if (myContext.Users.Where(u => u.Email == login.Email).Count() <= 0)
@@ -79,6 +94,11 @@ namespace Overtime.Repository.Data
         {
             var checkName = myContext.Users.Where(p => p.Email == email).FirstOrDefault();
             return checkName.FirstName;
+        }
+        public int GetSalary(string email)
+        {
+            var checkName = myContext.Users.Where(p => p.Email == email).FirstOrDefault();
+            return checkName.Salary;
         }
         public LoginVM FindByEmail(string email)
         {
