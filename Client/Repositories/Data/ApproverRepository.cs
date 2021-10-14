@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace Client.Repositories.Data
 {
-    public class UserRequestRepository : GeneralRepository<UserRequest, int>
+    public class ApproverRepository : GeneralRepository<UserRequest, int>
     {
         private readonly Address address;
         private readonly string request;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly HttpClient httpClient;
 
-        public UserRequestRepository(Address address, string request = "UserRequests/") : base(address, request)
+        public ApproverRepository(Address address, string request = "UserRequests/") : base(address, request)
         {
             this.address = address;
             this.request = request;
