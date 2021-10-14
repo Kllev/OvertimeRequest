@@ -41,7 +41,7 @@
 $(document).ready(function () {
 
     $('#btnFIllReq').on('click', fillTable);
-
+    $('#btnReq').on('click', sendReq(requestVM));
 });
 
 function fillTable() {
@@ -69,10 +69,22 @@ function fillTable() {
         };
         requestVM.push(objReq);
     });
+  //for (var i = 0; i < objReq.length; i++) {
+    //    var row= data.rows[i]
+    //    let objReq = {
+    //        "UserId": obj.UserId,
+    //        "JobTask": obj.JobTask,
+    //        "Description": obj.Description,
+    //        "Date": obj.Date,
+    //        "EndTime": obj.EndTime,
+    //        "StartTime": obj.StartTime
+    //    };
+    //    requestVM.push(objReq);
+    //}
+    // lets suppose table id is 'tblViewRecords'
     //tampilkan
     $('#myTable tbody').append(rowHtml);
     console.log(requestVM);
-    $('#btnReq').on('click', sendReq(requestVM));
 }
 $(document).ready(function () {
     $('#DataTable').DataTable();

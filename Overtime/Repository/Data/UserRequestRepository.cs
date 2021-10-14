@@ -12,50 +12,51 @@ namespace Overtime.Repository.Data
     public class UserRequestRepository : GeneralRepository<MyContext, UserRequest, int>
     {
         MyContext myContext;
-        private readonly DbSet<RequestVM> request;
+        private readonly DbSet<UserRequest> userRequests;
+        private readonly DbSet<Request> requests;
 
         public UserRequestRepository(MyContext myContext) :base(myContext)
         {
             this.myContext = myContext;
-            this.request = myContext.Set<RequestVM>();
+            this.userRequests = myContext.Set<UserRequest>();
+            this.requests = myContext.Set<Request>();
         }
         public int InsertUserReq(RequestVM requestVM)
         {
             Request request = new Request();
+            request.RequestDate = DateTime.Today;
+            request.StatusName = (Request.Status)requestVM.StatusName;
+            request.ApproverName = requestVM.ApproverName;
+            request.SalaryOvertime = HitungSalary(requestVM.Time, requestVM.Salary);
             myContext.Requests.Add(request);
             myContext.SaveChanges();
 
             foreach(var item in requestVM.userRequests)
             {
-                var userRequest = new UserRequest()
-                {
-                    UserId = item.UserId,
-                    RequestId = request.Id,
-                    JobTask = item.JobTask,
-                    StartTime = item.StartTime,
-                    EndTime = item.EndTime,
-                    Description = item.Description
-                };
+                var userRequest = new UserRequest();
+                userRequest.UserId = item.UserId;
+                userRequest.RequestId = request.Id;
+                userRequest.JobTask = item.JobTask;
+                userRequest.StartTime = item.StartTime;
+                userRequest.EndTime = item.EndTime;
+                userRequest.Date = item.Date;
+                userRequest.Description = item.Description;
                 myContext.UserRequests.Add(userRequest);
             }
-            request.RequestDate = DateTime.Today;
-            request.StatusName = (Request.Status)requestVM.StatusName;
-            request.ApproverName = requestVM.ApproverName;
-            request.SalaryOvertime = HitungSalary(requestVM.Time, requestVM.Salary);
-
             return myContext.SaveChanges();
         }
         public double HitungSalary(int time, int salary)
         {
             double salaryOT = 0;
+            double ket = 1 / 173;
             if (time == 1)
             {
-                salaryOT += time * 1.5d * (1 / 173) * salary;
+                salaryOT += 1 * 1.5 * ket * salary;
             }
             else if (time >= 1) 
             {
-                salaryOT += time * 1.5d * (1 / 173) * salary;
-                salaryOT += (time-1) * 2 * (1 / 173) * salary;
+                salaryOT += 1 * 1.5 * ket * salary;
+                salaryOT += (time-1) * 2 * ket * salary;
             }
             salaryOT = Math.Round(salaryOT, 2);
             return salaryOT;
