@@ -8,9 +8,14 @@ namespace Overtime.Models
 {
     public class UserRequest
     {
+        public UserRequest()
+        {
+        }
+        [Required]
         public int Id { get; set; }
+        [Required]
         public int RequestId { get; set; }
-        
+        [Required]
         public string UserId { get; set; }
         [Required]
         public string JobTask { get; set; }

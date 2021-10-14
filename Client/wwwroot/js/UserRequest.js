@@ -46,6 +46,7 @@ $(function () {
 $(document).ready(function () {
 
     $('#btnFIllReq').on('click', fillTable);
+    $('#btnReq').on('click', sendReq(requestVM));
 });
 
 function fillTable() {
@@ -61,36 +62,35 @@ function fillTable() {
     }]
     //di foreach
     var rowHtml = "";
-    let requestVM = objReq[i];
+    let requestVM = [];
     obj.forEach(function (req) {
         rowHtml += '<tr></tr><td></td><td>' + req.UserId + '</td><td>' + req.JobTask + '</td><td>' + req.Date + '</td><td>' + req.StartTime + '</td><td>' + req.EndTime + '</td><td>' + req.Description + '</td>';
-        //let objReq = {
-        //    "UserId": req.UserId,
-        //    "JobTask": req.JobTask,
-        //    "Description": req.Description,
-        //    "Date": req.Date,
-        //    "EndTime": req.EndTime,
-        //    "StartTime": req.StartTime
-        //};
-        //insertReq(requestVM, objReq[1]);
-    });
-    for (var i = 0; i < objReq.length; i++) {
-        var row= data.rows[i]
         let objReq = {
-            "UserId": obj.UserId,
-            "JobTask": obj.JobTask,
-            "Description": obj.Description,
-            "Date": obj.Date,
-            "EndTime": obj.EndTime,
-            "StartTime": obj.StartTime
+            "UserId": req.UserId,
+            "JobTask": req.JobTask,
+            "Description": req.Description,
+            "Date": req.Date,
+            "EndTime": req.EndTime,
+            "StartTime": req.StartTime
         };
-        requestVM.push(objReq);
-    }
+        insertReq(requestVM, objReq);
+    });
+    //for (var i = 0; i < objReq.length; i++) {
+    //    var row= data.rows[i]
+    //    let objReq = {
+    //        "UserId": obj.UserId,
+    //        "JobTask": obj.JobTask,
+    //        "Description": obj.Description,
+    //        "Date": obj.Date,
+    //        "EndTime": obj.EndTime,
+    //        "StartTime": obj.StartTime
+    //    };
+    //    requestVM.push(objReq);
+    //}
     // lets suppose table id is 'tblViewRecords'
     //tampilkan
     $('#myTable tbody').append(rowHtml);
     console.log(requestVM);
-    $('#btnReq').on('click', sendReq(requestVM));
 }
 function insertReq(arr, ...item) {
     arr.push(...item);
