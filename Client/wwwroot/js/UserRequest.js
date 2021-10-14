@@ -1,9 +1,4 @@
-﻿////$(document).ready(function () {
-////    $('.datepicker').datepicker({
-////        startDate: '-3d'
-////    });
-////});
-$(function () {
+﻿$(function () {
     $('#dateOvertime').datepicker({
         startDate: '-3d',
         endDate: '0d',
@@ -241,6 +236,27 @@ function sendReq(obj) {
 //        }
 //    })
 //}
+$(document).ready(function () {
+    $('#btnFIllReq').on('click', fillTable);
+
+});
+
+function fillTable() {
+    // get values form dropdown and text boxes
+    var UserId = $('#userid').val();
+    var JobTask = $('#jobtask').val();
+    var Date = $('#dateOvertime').val();
+    var StartTime = $('#inputstarttime').val();
+    var EndTime = $('#inputendtime').val();
+    var Description = $('#desc').val;
+
+    var rowHtml = '<tr><td><input type="checkbox" name="ID" value="@employee.ID" class="custom-checkbox chkCheckBoxId" /></td><td>' + UserId + '</td><td>' + JobTask + '</td><td>' + Date + '</td><td>' + StartTime + '</td><td>' + EndTime + '</td><td>' + Description + '</td><td>';
+
+    // lets suppose table id is 'tblViewRecords'
+
+    $('#myTable tbody').append(rowHtml);
+}
+
 $(document).ready(function () {
     $('#DataTable').DataTable();
     $('#checkBoxAll').click(function () {
