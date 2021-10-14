@@ -25,6 +25,7 @@ $("#registerBtn").click(function (event) {
     obj.Email = $("#inputEmail").val();
     obj.Password = $("#inputPassword").val();
     obj.DivisionId = parseInt($("#inputdivisi").val());
+    obj.ManagerId = $("#inputmanager").val();
     console.log(obj);
 
     $.ajax({

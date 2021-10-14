@@ -3,7 +3,7 @@
         startDate: '-3d',
         endDate: '0d',
         todayHighlight: 'TRUE',
-        format: 'dd/mm/yyyy'
+        format: 'yyyy/mm/dd'
     });
 });
 (function () {
@@ -44,21 +44,25 @@ $(document).ready(function () {
     $('#btnReq').on('click', sendReq(requestVM));
 });
 
+let Request = [];
+
 function fillTable() {
     //dibikin list
     let obj = [{
         UserId: $('#userid').val(),
         JobTask: $('#jobtask').val(),
         Date: $('#dateOvertime').val(),
-        StartTime: $('#inputstarttime').val(),
-        EndTime: $('#inputendtime').val(),
+        StartTime: parseInt($("#inputstarttime").val()),
+        EndTime: parseInt($("#inputendtime").val()),
         Description: $('#desc').val()
     }]
+    console.log(obj)
+    Request.push(obj)
+    console.log(Request)
     //di foreach
     var rowHtml = "";
-    let requestVM = [];
     obj.forEach(function (req) {
-        rowHtml += '<tr></tr><td></td><td>' + req.UserId + '</td><td>' + req.JobTask + '</td><td>' + req.Date + '</td><td>' + req.StartTime + '</td><td>' + req.EndTime + '</td><td>' + req.Description + '</td>';
+        rowHtml += '<tr></tr><td></td><td>' + req.UserId + '</td><td>' + req.JobTask + '</td><td>' + req.Date + '</td><td>' + req.StartTime + ":00" + '</td><td>' + req.EndTime + ":00" + '</td><td>' + req.Description + '</td>';
         let objReq = {
             "UserId": req.UserId,
             "JobTask": req.JobTask,
@@ -67,25 +71,45 @@ function fillTable() {
             "EndTime": req.EndTime,
             "StartTime": req.StartTime
         };
-        requestVM.push(objReq);
     });
-  //for (var i = 0; i < objReq.length; i++) {
-    //    var row= data.rows[i]
-    //    let objReq = {
-    //        "UserId": obj.UserId,
-    //        "JobTask": obj.JobTask,
-    //        "Description": obj.Description,
-    //        "Date": obj.Date,
-    //        "EndTime": obj.EndTime,
-    //        "StartTime": obj.StartTime
-    //    };
-    //    requestVM.push(objReq);
-    //}
-    // lets suppose table id is 'tblViewRecords'
-    //tampilkan
     $('#myTable tbody').append(rowHtml);
-    console.log(requestVM);
 }
+
+$("#btnSendReq").click(function (event) {
+        event.preventDefault();
+
+        var obj = new Object();
+        obj.Time = 3,
+        obj.Salary = parseInt($('#salary').val()),
+        obj.StatusName = 1,
+        obj.ApproverName = $('#manager').val(),
+        obj.userRequests = Request
+        console.log(obj);
+
+    $.ajax({
+        url: "https://localhost:44330/api/UserRequests/InsertUserReq",
+        /*url: "/Register/RegisterData",*/
+        type: "POST",
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(obj)
+    }).done((result) => {
+        Swal.fire({
+            title: 'Success!',
+            text: 'You Have Been Submited',
+            icon: 'success',
+        });
+    }).fail((result) => {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Failed To Submit',
+            icon: 'error',
+            confirmButtonText: 'Back'
+        })
+    });
+})
+
+
 $(document).ready(function () {
     $('#DataTable').DataTable();
     $('#checkBoxAll').click(function () {

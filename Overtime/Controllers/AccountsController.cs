@@ -117,7 +117,8 @@ namespace Overtime.Controllers
                       { Token = new JwtSecurityTokenHandler().WriteToken(token), 
                         Id = repository.GetId(login.Email),
                         Salary = repository.GetSalary(login.Email),
-                        Messages = "Login Berhasil"
+                        Messages = "Login Berhasil",
+                        ManagerName = repository.GetManager(login.Email)
                     });
                 }
 
