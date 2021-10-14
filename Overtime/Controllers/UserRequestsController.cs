@@ -51,5 +51,18 @@ namespace Overtime.Controllers
                 });
             }
         }
+        [HttpGet("GetUserReq/{id}")]
+        public ActionResult GetUserReq(int id)
+        {
+            var getRegister = repository.GetUserReqByReqId(id);
+            if (getRegister == null)
+            {
+                return NotFound(getRegister);
+            }
+            else
+            {
+                return Ok(getRegister);
+            }
+        }
     }
 }

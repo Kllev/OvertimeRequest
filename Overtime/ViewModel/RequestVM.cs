@@ -1,4 +1,6 @@
-﻿using Overtime.Models;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Overtime.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -30,6 +32,7 @@ namespace Overtime.ViewModel
             Decline,
             Proccess
         }
+        [JsonConverter(typeof(StringEnumConverter))]
         public status StatusName { get; set; }
         [Required(ErrorMessage = "Approvername is required")]
         public string ApproverName { get; set; }

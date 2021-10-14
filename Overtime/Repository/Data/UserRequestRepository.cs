@@ -45,7 +45,7 @@ namespace Overtime.Repository.Data
             }
             return myContext.SaveChanges();
         }
-        public double HitungSalary(int time, int salary)
+        public double HitungSalary(double time, double salary)
         {
             double salaryOT = 0;
             double ket = 0.00578034;
@@ -61,5 +61,23 @@ namespace Overtime.Repository.Data
             salaryOT = Math.Round(salaryOT, 2);
             return salaryOT;
         }
+        public IEnumerable<UserReqVM> GetUserReqByReqId(int id)
+        {
+            var getUserReq = (from ur in myContext.UserRequests
+                           join r in myContext.Requests on ur.RequestId equals r.Id
+                           where ur.RequestId==id
+                           select new UserReqVM
+                           {
+                               UserId=ur.UserId,
+                               JobTask=ur.JobTask,
+                               Description=ur.Description,
+                               StartTime=ur.StartTime,
+                               EndTime=ur.EndTime,
+                               Date=ur.Date,
+                               Time=ur.EndTime-ur.StartTime
+                           }).ToList();
+            return getUserReq;
+        }
     }
+    
 }
