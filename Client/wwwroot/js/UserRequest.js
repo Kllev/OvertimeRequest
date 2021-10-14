@@ -41,27 +41,28 @@
 $(document).ready(function () {
 
     $('#btnFIllReq').on('click', fillTable);
-    $('#btnReq').on('click', sendReq(requestVM));
 });
 
 let Request = [];
 
 function fillTable() {
     //dibikin list
-    let obj = [{
-        UserId: $('#userid').val(),
-        JobTask: $('#jobtask').val(),
-        Date: $('#dateOvertime').val(),
-        StartTime: parseInt($("#inputstarttime").val()),
-        EndTime: parseInt($("#inputendtime").val()),
-        Description: $('#desc').val()
-    }]
+    let requested = []
+    var obj = new Object()
+    obj.UserId = $('#userid').val();
+    obj.JobTask = $('#jobtask').val();
+    obj.Date = $('#dateOvertime').val();
+    obj.StartTime = parseInt($("#inputstarttime").val());
+    obj.EndTime = parseInt($("#inputendtime").val());
+    obj.timeperhitungan = parseInt($("#inputendtime").val()) - parseInt($("#inputstarttime").val());
+    obj.Description = $('#desc').val()
     console.log(obj)
     Request.push(obj)
+    requested.push(obj)
     console.log(Request)
     //di foreach
     var rowHtml = "";
-    obj.forEach(function (req) {
+    requested.forEach(function (req) {
         rowHtml += '<tr></tr><td></td><td>' + req.UserId + '</td><td>' + req.JobTask + '</td><td>' + req.Date + '</td><td>' + req.StartTime + ":00" + '</td><td>' + req.EndTime + ":00" + '</td><td>' + req.Description + '</td>';
         let objReq = {
             "UserId": req.UserId,
@@ -76,15 +77,19 @@ function fillTable() {
 }
 
 $("#btnSendReq").click(function (event) {
-        event.preventDefault();
-
-        var obj = new Object();
-        obj.Time = 3,
-        obj.Salary = parseInt($('#salary').val()),
-        obj.StatusName = 1,
-        obj.ApproverName = $('#manager').val(),
-        obj.userRequests = Request
-        console.log(obj);
+    event.preventDefault();
+    let sum = 0;
+    for (let i = 0; i < Request.length; i++) {
+        sum += Request[i].timeperhitungan;
+    }
+    var obj = new Object();
+    Request.forEach
+    obj.ApproverName = $('#manager').val();
+    obj.Salary = parseInt($('#salary').val());
+    obj.StatusName = 2;
+    obj.Time = sum;
+    obj.userRequests = Request;
+    console.log(obj);
 
     $.ajax({
         url: "https://localhost:44330/api/UserRequests/InsertUserReq",

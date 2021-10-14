@@ -35,7 +35,6 @@ namespace Overtime.ViewModel
         public string ApproverName { get; set; }
         //[Column(TypeName = "decimal(18,2)")]
         //public decimal SalaryOvertime { get; set; }
-        [Required]
         public List<UserRequest> userRequests { get; set; }
         [Required(ErrorMessage = "Time is required")]
         public int Time { get; set; }
