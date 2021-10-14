@@ -200,6 +200,7 @@ function remove(id) {
         }
     })
 }
+let Request = [];
 function fillTable() {
     //dibikin list
     let requested = []
