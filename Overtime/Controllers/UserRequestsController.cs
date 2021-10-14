@@ -30,15 +30,15 @@ namespace Overtime.Controllers
             {
                 if (repository.InsertUserReq(requestVM) > 0)
                 {
-                    return Ok(new { status = HttpStatusCode.OK, message = "Data Berhasil ditambahkan" });
+                    return Ok();
                 }
                 else if (repository.InsertUserReq(requestVM) == 0)
                 {
-                    return BadRequest(new { status = HttpStatusCode.BadRequest, message = "Gagal Menambahkan Data" });
+                    return BadRequest();
                 }
                 else
                 {
-                    return BadRequest(new { status = HttpStatusCode.BadRequest, message = "Data Sudah ada" });
+                    return BadRequest();
                 }
             }
             catch (Exception e)
