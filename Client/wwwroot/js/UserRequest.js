@@ -140,13 +140,10 @@ function detail(id) {
         //menampil kan data
         var rowHtml = "";
         result.forEach(function (req) {
-            rowHtml += '<tr></tr><td></td><td>' + req.userId + '</td><td>' + req.jobTask + '</td><td>' + req.date + '</td><td>' + req.startTime + ":00" + '</td><td>' + req.endTime + ":00" + '</td><td>' + req.time + '</td><td>' + req.description + '</td>';
+            rowHtml += '<tr></tr><td>' + req.userId + '</td><td>' + req.jobTask + '</td><td>' + req.date + '</td><td>' + req.startTime + ":00" + '</td><td>' + req.endTime + ":00" + '</td><td>' + req.time + '</td><td>' + req.description + '</td>';
         });
         //tampilkan
-        $('#tableDetail tbody').append(rowHtml);
-        });
-        //$("#dataModal").modal('show');
-/*        $("#data").html(text);*/
+        $('#tableDetail tbody').html(rowHtml);
     }).fail((result) => {
         console.log(result);
     });
