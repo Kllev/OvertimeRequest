@@ -1,18 +1,13 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Overtime.Models
+namespace Overtime.ViewModel
 {
-    public class UserRequest
+    public class UserReqVM
     {
-        public UserRequest()
-        {
-        }
-        public int Id { get; set; }
         [Required]
         public int RequestId { get; set; }
         [Required]
@@ -27,9 +22,6 @@ namespace Overtime.Models
         public int EndTime { get; set; }
         [Required]
         public int StartTime { get; set; }
-        
-        public virtual User User { get; set; }
-
-        public virtual Request Request { get; set; }
+        public int Time { get; set; }
     }
 }

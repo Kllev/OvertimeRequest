@@ -39,12 +39,167 @@
     }, false);
 })();
 $(document).ready(function () {
+    $('#tableClient').DataTable({
+        "filter": true,
+        "ajax": {
+            "url": 'https://localhost:44330/API/Requests',
+            "datatype": "json",
+            "dataSrc": ""
+        },
+        "dom": 'Bfrtip',
+        "buttons": [
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                },
+                className: 'btn btn-sm btn-outline-secondary',
+                bom: true
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
 
+                },
+                className: 'btn btn-sm btn-outline-secondary',
+                bom: true
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                },
+                className: 'btn btn-sm btn-outline-secondary',
+                bom: true
+            },
+        ],
+        "columns": [
+            {
+                "data": null,
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                },
+                /*"autoWidth": true,*/
+                "orderable": false
+            },
+            { "data": "id", "autoWidth": true },
+            { "data": "statusName", "autoWidth": true },
+            {
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+
+                    return row["requestDate"].slice(0,10);
+                },
+                "autoWidth": true
+            },
+            { "data": "salaryOvertime", "autoWidth": true },
+            {
+                "render": function (data, type, row) {
+                    return `<button type="button"
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                        onclick="detail('${row["id"]}')">Detail</button></td>
+                        <button type="button"
+                        class="btn btn-danger"
+                        onclick="remove('${row["id"]}')">Delete</button></td>
+                        `;
+                },
+                "autoWidth": true,
+                "orderable": false
+            }
+        ]
+    });
+    $('#checkBoxAll').click(function () {
+        if ($(this).is(":checked")) {
+            $(".chkCheckBoxId").prop("checked", true)
+        }
+        else {
+            $(".chkCheckBoxId").prop("checked", false)
+        }
+    });
     $('#btnFIllReq').on('click', fillTable);
+    $('#DataTable').DataTable({
+
+    });
+
 });
-
-let Request = [];
-
+function detail(id) {
+    $.ajax({
+        url: "https://localhost:44330/API/UserRequests/GetUserReq/" + id,
+    }).done((result) => {
+        console.log(id);
+        console.log(result);
+        //menampil kan data
+        var text = "";
+        $.each(result.results, function (key, val) {
+            text += `<div class="col-4 ">
+                        <ul>
+                            <li class="list-group">UserId</li>
+                            <li class="list-group">JobTask</li>
+                            <li class="list-group">Date</li>
+                            <li class="list-group">StartTime</li>
+                            <li class="list-group">EndTime</li>
+                            <li class="list-group">Description</li>
+                        </ul>
+                    </div>
+                    <div class="col-8">
+                        <ul>
+                    <li class="list-group">: ${result.UserId}</li>
+                    <li class="list-group">: ${result.JobTask}</li>
+                    <li class="list-group">: ${result.Date}</li>
+                    <li class="list-group">: ${result.StartTime}</li>
+                    <li class="list-group">: ${result.EndTime}</li>
+                    <li class="list-group">: ${result.Description}</li>
+                </ul>
+                    </div>`;
+        });
+        //$("#dataModal").modal('show');
+        $("#data").html(text);
+    }).fail((result) => {
+        console.log(result);
+    });
+};
+function remove(id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            //let val = document.getElementById('nik');
+            //console.log(nik);
+            //val.remove();
+            $.ajax({
+                url: "https://localhost:44330/API/Requests/" + id,
+                method: 'DELETE',
+                success: function () {
+                    console.log(id);
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                    $('#tableClient').DataTable().ajax.reload();
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!'
+                    });
+                }
+            })
+        }
+    })
+}
 function fillTable() {
     //dibikin list
     let requested = []
@@ -73,6 +228,7 @@ function fillTable() {
             "StartTime": req.StartTime
         };
     });
+    //tampilkan
     $('#myTable tbody').append(rowHtml);
 }
 
@@ -131,91 +287,3 @@ $("#deletebtn").click(function (event) {
     event.preventDefault();
     var row = table.row(this.closest('tr')).data();
 })
-
-//$(document).ready(function () {
-//    $('#myTable').DataTable({
-//        "filter": true,
-//        "ajax": {
-//            "url": "/UserRequest/GetAllData",
-//            "datatype": "json",
-//            "dataSrc": ""
-//        },
-//        "dom": 'Bfrtip',
-//        "buttons": [
-//            {
-//                extend: 'excelHtml5',
-//                exportOptions: {
-//                    columns: [1, 2, 3, 4, 5]
-//                },
-//                className: 'btn btn-sm btn-outline-secondary',
-//                bom: true
-//            },
-//            {
-//                extend: 'pdfHtml5',
-//                exportOptions: {
-//                    columns: [1, 2, 3, 4, 5]
-
-//                },
-//                className: 'btn btn-sm btn-outline-secondary',
-//                bom: true
-//            },
-//            {
-//                extend: 'print',
-//                exportOptions: {
-//                    columns: [1, 2, 3, 4, 5]
-//                },
-//                className: 'btn btn-sm btn-outline-secondary',
-//                bom: true
-//            },
-//        ],
-//        "columns": [
-//            {
-//                "data": null,
-//                render: function (data, type, row, meta) {
-//                    return meta.row + meta.settings._iDisplayStart + 1;
-//                },
-//                /*"autoWidth": true,*/
-//                "orderable": false
-//            },
-//            { "data": "RequestId", "autoWidth": true },
-//            { "data": "JobTask", "autoWidth": true },
-//            { "data": "Date", "autoWidth": true },
-//            { "data": "time", "autoWidth": true },
-//        ]
-//    });
-//});
-//function insert() {
-//    var obj = {
-//        "UserId":$('#userid').val(),
-//        "JobTask": $('#jobtask').val(),
-//        "Description": $('#desc').val(),
-//        "Date": $('#dateOvertime').val(),
-//        "EndTime": $('#startTime').val(),
-//        "StartTime": $('#endTime').val(),
-//    };
-//    console.log(JSON.stringify(obj));
-//    $.ajax({
-//        url: "UserRequests/PostUserReq",
-//        type: 'POST',
-//        dataType: 'json',
-//        contentType: 'application/json; charset=utf-8',
-//        data: JSON.stringify(obj),
-//        success: function (data) {
-//            console.log(data);
-//            Swal.fire('Request telah ditambahkan');
-//            /*$('#addModal').modal("hide");*/
-//            //$('#addModal').hide();
-//            //$('.modal-backdrop').remove();
-//            //$('#formatRegister').trigger('reset');
-//            //$('#myTable').DataTable().ajax.reload();
-//        },
-//        error: function (xhr, status, error) {
-//            Swal.fire({
-//                icon: 'error',
-//                icon: 'error',
-//                title: 'Oops...',
-//                text: 'Something went wrong!'
-//            });
-//        }
-//    })
-//}
