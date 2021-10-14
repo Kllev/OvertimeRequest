@@ -2,7 +2,6 @@
 ////    $('.datepicker').datepicker({
 ////        startDate: '-3d'
 ////    });
-
 ////});
 $(function () {
     $('#dateOvertime').datepicker({
@@ -242,7 +241,6 @@ function sendReq(obj) {
 //        }
 //    })
 //}
-
 $(document).ready(function () {
     $('#DataTable').DataTable();
     $('#checkBoxAll').click(function () {
