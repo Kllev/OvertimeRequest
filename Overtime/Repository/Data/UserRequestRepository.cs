@@ -63,7 +63,7 @@ namespace Overtime.Repository.Data
         }
         public IEnumerable<UserReqVM> GetUserReqByReqId(int id)
         {
-            var getUserReq = (from ur in myContext.UserRequests
+            var getData = (from  ur in myContext.UserRequests
                            join r in myContext.Requests on ur.RequestId equals r.Id
                            where ur.RequestId==id
                            select new UserReqVM
@@ -76,7 +76,11 @@ namespace Overtime.Repository.Data
                                Date=ur.Date,
                                Time=ur.EndTime-ur.StartTime
                            }).ToList();
-            return getUserReq;
+            if (getData.Count == 0)
+            {
+                return null;
+            }
+            return getData.ToList();
         }
     }
     
