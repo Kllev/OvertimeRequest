@@ -39,19 +39,20 @@
             </div>
             <div class="modal-body">
                 <div class="row" id="data">
-                    <div class="col-4 ">
-                        <ul>
-                            <li class="list-group">UserId</li>
-                            <li class="list-group">JobTask</li>
-                            <li class="list-group">Date</li>
-                            <li class="list-group">StartTime</li>
-                            <li class="list-group">EndTime</li>
-                            <li class="list-group">Description</li>
-                        </ul>
-                    </div>
-                    <div class="col-8">
-
-                    </div>
+                    <table id="tableDetail" class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>RequestID</th>
+                                <th>Status</th>
+                                <th>RequestDate</th>
+                                <th>SalaryOvertime</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bodyClient">
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="modal-footer">
