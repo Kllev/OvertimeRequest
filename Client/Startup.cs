@@ -43,6 +43,7 @@ namespace Client
             services.AddScoped<UserRequestRepository>();
             services.AddScoped<ChangePasswordRepository>();
             services.AddScoped<ForgotPasswordRepository>();
+            services.AddScoped<RequestRepository>();
 
             services.AddScoped<Address>();
 
