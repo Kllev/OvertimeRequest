@@ -118,7 +118,8 @@ namespace Overtime.Controllers
                         Id = repository.GetId(login.Email),
                         Salary = repository.GetSalary(login.Email),
                         Messages = "Login Berhasil",
-                        ManagerName = repository.GetManager(login.Email)
+                        ManagerName = repository.GetManager(login.Email),
+                        ManagerId = repository.GetManagerId(login.Email)
                     });
                 }
 

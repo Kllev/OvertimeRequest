@@ -40,5 +40,10 @@ namespace Client.Repositories.Data
             var result = httpClient.PutAsync(request + "Decline", content).Result;
             return result.StatusCode;
         }
+        public HttpStatusCode DeleteReq(int id)
+        {
+            var result = httpClient.DeleteAsync(request + id).Result;
+            return result.StatusCode;
+        }
     }
 }

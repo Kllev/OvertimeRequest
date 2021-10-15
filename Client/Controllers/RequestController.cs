@@ -34,6 +34,15 @@ namespace Client.Controllers
         public JsonResult Decline(UpdateStatusVM updateStatusVM)
         {
             var result = requestRepository.Decline(updateStatusVM);
+            //EmailSender.SendEmail(loginVM.Email, SubjectMail, "Hello "
+            //                  + loginVM.Email + "<br><br>berikut Kode OTP anda<br><br><b>"
+            //                  + otp + "<b><br><br>Thanks<br>netcore-api.com");
+            return Json(result);
+        }
+        [HttpDelete]
+        public JsonResult DeleteReq(int id)
+        {
+            var result = requestRepository.DeleteReq(id);
             return Json(result);
         }
     }
