@@ -42,7 +42,8 @@ $(document).ready(function () {
     $('#tableClient').DataTable({
         "filter": true,
         "ajax": {
-            "url": 'https://localhost:44330/API/Requests',
+           /* "url": 'https://localhost:44330/api/requests/GetReq/' + managerId,*/
+            "url": 'https://localhost:44330/API/Requests/',
             "datatype": "json",
             "dataSrc": ""
         },
@@ -126,12 +127,11 @@ $(document).ready(function () {
     });
 
 });
-
 $(document).ready(function () {
-
+    //menambahkan data dari form ke tabel html
     $('#btnFIllReq').on('click', fillTable);
 });
-
+//tampil user request sesuai request id yang di klik
 function detail(id) {
     sessionStorage.setItem("RequestId", id)
     $.ajax({
@@ -139,6 +139,7 @@ function detail(id) {
     }).done((result) => {
         console.log(id);
         console.log(result);
+        console.log(managerId);
         //menampil kan data
         var rowHtml = "";
         result.forEach(function (req) {
@@ -184,7 +185,7 @@ $("#btndecline").click(function (event) {
     obj.id = parseInt(sessionStorage.getItem("RequestId"));
     console.log(obj);
     $.ajax({
-        url: `Request/Approve/`,
+        url: `Request/Decline/`,
         type: "PUT",
         dataType: 'json',
         contentType: 'application/x-www-form-urlencoded; charset=utf-8',
@@ -221,7 +222,7 @@ function remove(id) {
             //console.log(nik);
             //val.remove();
             $.ajax({
-                url: "https://localhost:44330/API/Requests/" + id,
+                url: "Request/DeleteReq" + id,
                 method: 'DELETE',
                 success: function () {
                     console.log(id);

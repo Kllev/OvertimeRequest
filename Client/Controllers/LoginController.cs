@@ -36,6 +36,7 @@ namespace Client.Controllers
             var employeeId = jwtToken.Id;
             var salary = jwtToken.Salary;
             var manager = jwtToken.ManagerName;
+            var managerId = jwtToken.ManagerId;
 
             if (token == null)
             {
@@ -47,6 +48,7 @@ namespace Client.Controllers
             HttpContext.Session.SetString("UserId", employeeId);
             HttpContext.Session.SetInt32("Salary", salary);
             HttpContext.Session.SetString("Manager", manager);
+            HttpContext.Session.SetString("ManagerId", managerId);
 
 
             //HttpContext.Session.SetString("ProfilePicture", "assets/img/theme/user.png");

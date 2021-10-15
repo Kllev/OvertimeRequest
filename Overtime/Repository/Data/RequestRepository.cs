@@ -29,5 +29,25 @@ namespace Overtime.Repository.Data
             myContext.Requests.Update(data);
             return myContext.SaveChanges();
         }
+        public IEnumerable<ListGetReqByManagerVM> GetReqByManagerId(string id)
+        {
+            var getData = (from u in myContext.Users
+                           join ur in myContext.UserRequests on u.Id equals ur.UserId
+                           join r in myContext.Requests on ur.RequestId equals r.Id
+                           where u.ManagerID == id
+                           select new ListGetReqByManagerVM
+                           {
+                               Id =r.Id,
+                               StatusName= (ListGetReqByManagerVM.Status)r.StatusName,
+                               RequestDate= r.RequestDate,
+                               EmployeeId = u.Id,
+                               EmpployeeName = u.FirstName+u.LastName
+                           }).ToList();
+            if (getData.Count == 0)
+            {
+                return null;
+            }
+            return getData.ToList();
+        }
     }
 }
