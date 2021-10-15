@@ -97,6 +97,7 @@ $(document).ready(function () {
             { "data": "salaryOvertime", "autoWidth": true },
             {
                 "render": function (data, type, row) {
+                    sessionStorage.setItem("RequestId", row["id"])
                     return `<button type="button"
                         class="btn btn-primary"
                         data-toggle="modal"
@@ -132,6 +133,7 @@ $(document).ready(function () {
 });
 
 function detail(id) {
+    sessionStorage.setItem("RequestId", id)
     $.ajax({
         url: "https://localhost:44330/API/UserRequests/GetUserReq/" + id,
     }).done((result) => {
@@ -148,6 +150,62 @@ function detail(id) {
         console.log(result);
     });
 };
+
+$("#btnapprove").click(function (event) {
+    event.preventDefault();
+    var obj = new Object();
+    obj.id = parseInt(sessionStorage.getItem("RequestId"));
+    console.log(obj);
+    $.ajax({ 
+        url: `Request/Approve/`,
+        type: "PUT",
+        dataType: 'json',
+        contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+        data: obj
+    }).done((result) => {
+        Swal.fire({
+            title: 'Success!',
+            text: 'You Have Been Submited',
+            icon: 'success',
+        });
+    }).fail((error) => {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Failed To Submit',
+            icon: 'error',
+            confirmButtonText: 'Back'
+        })
+    });
+})
+
+$("#btndecline").click(function (event) {
+    event.preventDefault();
+    var obj = new Object();
+    obj.id = parseInt(sessionStorage.getItem("RequestId"));
+    console.log(obj);
+    $.ajax({
+        url: `Request/Approve/`,
+        type: "PUT",
+        dataType: 'json',
+        contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+        data: obj
+    }).done((result) => {
+        Swal.fire({
+            title: 'Success!',
+            text: 'You Have Been Submited',
+            icon: 'success',
+        });
+    }).fail((error) => {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Failed To Submit',
+            icon: 'error',
+            confirmButtonText: 'Back'
+        })
+    });
+})
+
+
 function remove(id) {
     Swal.fire({
         title: 'Are you sure?',
