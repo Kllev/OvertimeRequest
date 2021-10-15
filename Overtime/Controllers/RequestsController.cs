@@ -57,6 +57,7 @@ namespace Overtime.Controllers
                 });
             }
         }
+        //getrequest by managerid
         [HttpGet("GetReq/{id}")]
         public ActionResult GetUserReq(string id)
         {
@@ -69,6 +70,20 @@ namespace Overtime.Controllers
             {
                 return Ok(getRegister);
             }
+
+        }
+        [HttpGet("GetAllApproved")]
+        public ActionResult AllApproved()
+        {
+
+            var get = requestrepository.GetAllApprove();
+            if (get != null)
+            {
+                return Ok(get);
+            }
+
+            return NotFound("Tidak ada Data");
+
         }
     }
 }
