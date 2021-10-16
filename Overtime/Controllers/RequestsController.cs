@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NETCore.Repository.StaticMethod;
 using Overtime.Base;
 using Overtime.Models;
 using Overtime.Repository.Data;
@@ -27,7 +28,12 @@ namespace Overtime.Controllers
         {
             try
             {
+                string GetDate = DateTime.Now.ToString();
+                string SubjectMail = $"Update Request Status - {GetDate}";
                 var get = requestrepository.Approve(updateStatusVM);
+                EmailSender.SendEmail(updateStatusVM.Email, SubjectMail, "Hello "
+                                  + updateStatusVM.Email + "<br><br>Kami informasikan bahwa Status Request Overtime anda sudah di approve <br><br><b>"+
+                                   "<b><br><br>Thanks<br>OvertimeRequestTeam");
                 return Ok();
             }
             catch (Exception e)
@@ -45,7 +51,12 @@ namespace Overtime.Controllers
         {
             try
             {
+                string GetDate = DateTime.Now.ToString();
+                string SubjectMail = $"Update Request Status - {GetDate}";
                 var get = requestrepository.Decline(updateStatusVM);
+                EmailSender.SendEmail(updateStatusVM.Email, SubjectMail, "Hello "
+                                  + updateStatusVM.Email + "<br><br>Kami informasikan bahwa Status Request Overtime anda ditolak <br><br><b>" +
+                                   "<b><br><br>Thanks<br>OvertimeRequestTeam");
                 return Ok();
             }
             catch (Exception e)
@@ -69,6 +80,7 @@ namespace Overtime.Controllers
             {
                 return Ok(getRegister);
             }
+        }
 
         [HttpGet("GetAllApproved")]
         public ActionResult AllApproved()

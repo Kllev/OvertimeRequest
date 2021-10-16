@@ -42,8 +42,8 @@ $(document).ready(function () {
     $('#tableClient').DataTable({
         "filter": true,
         "ajax": {
-           /* "url": 'https://localhost:44330/api/requests/GetReq/' + managerId,*/
-            "url": 'https://localhost:44330/API/Requests/',
+            "url": 'https://localhost:44330/api/requests/GetReq/' + userId,
+            /*"url": 'https://localhost:44330/API/Requests/',*/
             "datatype": "json",
             "dataSrc": ""
         },
@@ -85,7 +85,8 @@ $(document).ready(function () {
                 "orderable": false
             },
             { "data": "id", "autoWidth": true },
-            { "data": "statusName", "autoWidth": true },
+            { "data": "employeeId", "autoWidth": true },
+            { "data": "employeeName", "autoWidth": true },
             {
                 "data": null,
                 "orderable": false,
@@ -95,7 +96,7 @@ $(document).ready(function () {
                 },
                 "autoWidth": true
             },
-            { "data": "salaryOvertime", "autoWidth": true },
+            { "data": "statusName", "autoWidth": true },
             {
                 "render": function (data, type, row) {
                     sessionStorage.setItem("RequestId", row["id"])
@@ -228,11 +229,10 @@ function detail(id) {
     }).done((result) => {
         console.log(id);
         console.log(result);
-        console.log(managerId);
         //menampil kan data
         var rowHtml = "";
         result.forEach(function (req) {
-            rowHtml += '<tr></tr><td>' + req.userId + '</td><td>' + req.jobTask + '</td><td>' + req.date + '</td><td>' + req.startTime + ":00" + '</td><td>' + req.endTime + ":00" + '</td><td>' + req.time + '</td><td>' + req.description + '</td>';
+            rowHtml += '<tr></tr><td>' + req.userId + '</td><td>' + req.jobTask + '</td><td>' + req.date.slice(0, 10) + '</td><td>' + req.startTime + ":00" + '</td><td>' + req.endTime + ":00" + '</td><td>' + req.time + '</td><td>' + req.description + '</td>';
         });
         //tampilkan
         $('#tableDetail tbody').html(rowHtml);
@@ -245,6 +245,7 @@ $("#btnapprove").click(function (event) {
     event.preventDefault();
     var obj = new Object();
     obj.id = parseInt(sessionStorage.getItem("RequestId"));
+    obj.email = email;
     console.log(obj);
     $.ajax({ 
         url: `Request/Approve/`,
@@ -272,6 +273,7 @@ $("#btndecline").click(function (event) {
     event.preventDefault();
     var obj = new Object();
     obj.id = parseInt(sessionStorage.getItem("RequestId"));
+    obj.email = email;
     console.log(obj);
     $.ajax({
         url: `Request/Decline/`,

@@ -2,7 +2,8 @@
     Layout = "~/Views/Shared/Template/_Layout.cshtml";
 }
 <script>
-    var managerId = '@ViewBag.managerId';
+    var userId = '@ViewBag.userId';
+    var email = '@ViewBag.email';
 </script>
 <div class="container mt-4">
     <div class="card">
@@ -16,10 +17,11 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>RequestID</th>
-                        <th>Status</th>
+                        <th>RequestId</th>
+                        <th>EmployeeId</th>
+                        <th>EmployeeName</th>
                         <th>RequestDate</th>
-                        <th>SalaryOvertime</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -51,7 +53,7 @@
                                 <th>Desc</th>
                             </tr>
                         </thead>
-                        <tbody id="bodyClient">
+                        <tbody>
                         </tbody>
                     </table>
                 </div>
@@ -65,5 +67,4 @@
 </div>
 @section Scripts{
     <script src="~/js/UserRequest.js"></script>
-
 }

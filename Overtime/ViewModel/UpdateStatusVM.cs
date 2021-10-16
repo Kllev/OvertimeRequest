@@ -8,6 +8,7 @@ namespace Overtime.ViewModel
     public class UpdateStatusVM
     {
         public int Id { get; set; }
-        
+        public string Email { get; set; }
+
     }
 }
