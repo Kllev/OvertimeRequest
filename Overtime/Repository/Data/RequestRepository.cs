@@ -48,6 +48,20 @@ namespace Overtime.Repository.Data
                 return null;
             }
             return getData.ToList();
+
+        public IEnumerable<ApproverListVM> GetAllApprove()
+        {
+
+            var all = (from p in myContext.Requests
+                       select new ApproverListVM
+                       {
+                           Id = p.Id,
+                           StatusName = (ApproverListVM.Status)p.StatusName,
+                           RequestDate = p.RequestDate,
+                           ApproverName = p.ApproverName,
+                           SalaryOvertime = p.SalaryOvertime
+                       }).ToList();
+            return all.Where(p => p.StatusName == (ApproverListVM.Status)2);
         }
     }
 }

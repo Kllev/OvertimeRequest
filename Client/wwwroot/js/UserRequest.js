@@ -128,7 +128,96 @@ $(document).ready(function () {
 
 });
 $(document).ready(function () {
-    //menambahkan data dari form ke tabel html
+    $('#tableApprover').DataTable({
+        "filter": true,
+        "ajax": {
+            "url": 'https://localhost:44330/Api/Requests/GetAllApproved',
+            "datatype": "json",
+            "dataSrc": ""
+        },
+        "dom": 'Bfrtip',
+        "buttons": [
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                },
+                className: 'btn btn-sm btn-outline-secondary',
+                bom: true
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+
+                },
+                className: 'btn btn-sm btn-outline-secondary',
+                bom: true
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                },
+                className: 'btn btn-sm btn-outline-secondary',
+                bom: true
+            },
+        ],
+        "columns": [
+            {
+                "data": null,
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                },
+                /*"autoWidth": true,*/
+                "orderable": false
+            },
+            { "data": "id", "autoWidth": true },
+            { "data": "statusName", "autoWidth": true },
+            {
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+
+                    return row["requestDate"].slice(0, 10);
+                },
+                "autoWidth": true
+            },
+            { "data": "salaryOvertime", "autoWidth": true },
+            {
+                "render": function (data, type, row) {
+                    sessionStorage.setItem("RequestId", row["id"])
+                    return `<button type="button"
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                        onclick="detail('${row["id"]}')">Detail</button></td>
+                        <button type="button"
+                        class="btn btn-danger"
+                        onclick="remove('${row["id"]}')">Delete</button></td>
+                        `;
+                },
+                "autoWidth": true,
+                "orderable": false
+            }
+        ]
+    });
+    $('#checkBoxAll').click(function () {
+        if ($(this).is(":checked")) {
+            $(".chkCheckBoxId").prop("checked", true)
+        }
+        else {
+            $(".chkCheckBoxId").prop("checked", false)
+        }
+    });
+    $('#DataTable').DataTable({
+
+    });
+
+});
+
+$(document).ready(function () {
+
     $('#btnFIllReq').on('click', fillTable);
 });
 //tampil user request sesuai request id yang di klik
