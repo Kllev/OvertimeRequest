@@ -42,7 +42,97 @@ $(document).ready(function () {
     $('#tableClient').DataTable({
         "filter": true,
         "ajax": {
-            "url": 'https://localhost:44330/API/Requests',
+            "url": 'https://localhost:44330/api/requests/GetReq/' + userId,
+            /*"url": 'https://localhost:44330/API/Requests/',*/
+            "datatype": "json",
+            "dataSrc": ""
+        },
+        "dom": 'Bfrtip',
+        "buttons": [
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                },
+                className: 'btn btn-sm btn-outline-secondary',
+                bom: true
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+
+                },
+                className: 'btn btn-sm btn-outline-secondary',
+                bom: true
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                },
+                className: 'btn btn-sm btn-outline-secondary',
+                bom: true
+            },
+        ],
+        "columns": [
+            {
+                "data": null,
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                },
+                /*"autoWidth": true,*/
+                "orderable": false
+            },
+            { "data": "id", "autoWidth": true },
+            { "data": "employeeId", "autoWidth": true },
+            { "data": "employeeName", "autoWidth": true },
+            {
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+
+                    return row["requestDate"].slice(0,10);
+                },
+                "autoWidth": true
+            },
+            { "data": "statusName", "autoWidth": true },
+            {
+                "render": function (data, type, row) {
+                    sessionStorage.setItem("RequestId", row["id"])
+                    return `<button type="button"
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                        onclick="detail('${row["id"]}')">Detail</button></td>
+                        <button type="button"
+                        class="btn btn-danger"
+                        onclick="remove('${row["id"]}')">Delete</button></td>
+                        `;
+                },
+                "autoWidth": true,
+                "orderable": false
+            }
+        ]
+    });
+    $('#checkBoxAll').click(function () {
+        if ($(this).is(":checked")) {
+            $(".chkCheckBoxId").prop("checked", true)
+        }
+        else {
+            $(".chkCheckBoxId").prop("checked", false)
+        }
+    });
+    $('#DataTable').DataTable({
+
+    });
+
+});
+$(document).ready(function () {
+    $('#tableApprover').DataTable({
+        "filter": true,
+        "ajax": {
+            "url": 'https://localhost:44330/Api/Requests/GetAllApproved',
             "datatype": "json",
             "dataSrc": ""
         },
@@ -90,13 +180,14 @@ $(document).ready(function () {
                 "orderable": false,
                 "render": function (data, type, row) {
 
-                    return row["requestDate"].slice(0,10);
+                    return row["requestDate"].slice(0, 10);
                 },
                 "autoWidth": true
             },
             { "data": "salaryOvertime", "autoWidth": true },
             {
                 "render": function (data, type, row) {
+                    sessionStorage.setItem("RequestId", row["id"])
                     return `<button type="button"
                         class="btn btn-primary"
                         data-toggle="modal"
@@ -120,48 +211,93 @@ $(document).ready(function () {
             $(".chkCheckBoxId").prop("checked", false)
         }
     });
-    $('#btnFIllReq').on('click', fillTable);
     $('#DataTable').DataTable({
 
     });
 
 });
+
+$(document).ready(function () {
+
+    $('#btnFIllReq').on('click', fillTable);
+});
+//tampil user request sesuai request id yang di klik
 function detail(id) {
+    sessionStorage.setItem("RequestId", id)
     $.ajax({
         url: "https://localhost:44330/API/UserRequests/GetUserReq/" + id,
     }).done((result) => {
         console.log(id);
         console.log(result);
         //menampil kan data
-        var text = "";
-        $.each(result.results, function (key, val) {
-            text += `<div class="col-4 ">
-                        <ul>
-                            <li class="list-group">UserId</li>
-                            <li class="list-group">JobTask</li>
-                            <li class="list-group">Date</li>
-                            <li class="list-group">StartTime</li>
-                            <li class="list-group">EndTime</li>
-                            <li class="list-group">Description</li>
-                        </ul>
-                    </div>
-                    <div class="col-8">
-                        <ul>
-                    <li class="list-group">: ${result.UserId}</li>
-                    <li class="list-group">: ${result.JobTask}</li>
-                    <li class="list-group">: ${result.Date}</li>
-                    <li class="list-group">: ${result.StartTime}</li>
-                    <li class="list-group">: ${result.EndTime}</li>
-                    <li class="list-group">: ${result.Description}</li>
-                </ul>
-                    </div>`;
+        var rowHtml = "";
+        result.forEach(function (req) {
+            rowHtml += '<tr></tr><td>' + req.userId + '</td><td>' + req.jobTask + '</td><td>' + req.date.slice(0, 10) + '</td><td>' + req.startTime + ":00" + '</td><td>' + req.endTime + ":00" + '</td><td>' + req.time + '</td><td>' + req.description + '</td>';
         });
-        //$("#dataModal").modal('show');
-        $("#data").html(text);
+        //tampilkan
+        $('#tableDetail tbody').html(rowHtml);
     }).fail((result) => {
         console.log(result);
     });
 };
+
+$("#btnapprove").click(function (event) {
+    event.preventDefault();
+    var obj = new Object();
+    obj.id = parseInt(sessionStorage.getItem("RequestId"));
+    obj.email = email;
+    console.log(obj);
+    $.ajax({ 
+        url: `Request/Approve/`,
+        type: "PUT",
+        dataType: 'json',
+        contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+        data: obj
+    }).done((result) => {
+        Swal.fire({
+            title: 'Success!',
+            text: 'You Have Been Submited',
+            icon: 'success',
+        });
+    }).fail((error) => {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Failed To Submit',
+            icon: 'error',
+            confirmButtonText: 'Back'
+        })
+    });
+})
+
+$("#btndecline").click(function (event) {
+    event.preventDefault();
+    var obj = new Object();
+    obj.id = parseInt(sessionStorage.getItem("RequestId"));
+    obj.email = email;
+    console.log(obj);
+    $.ajax({
+        url: `Request/Decline/`,
+        type: "PUT",
+        dataType: 'json',
+        contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+        data: obj
+    }).done((result) => {
+        Swal.fire({
+            title: 'Success!',
+            text: 'You Have Been Submited',
+            icon: 'success',
+        });
+    }).fail((error) => {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Failed To Submit',
+            icon: 'error',
+            confirmButtonText: 'Back'
+        })
+    });
+})
+
+
 function remove(id) {
     Swal.fire({
         title: 'Are you sure?',
@@ -177,7 +313,7 @@ function remove(id) {
             //console.log(nik);
             //val.remove();
             $.ajax({
-                url: "https://localhost:44330/API/Requests/" + id,
+                url: "Request/DeleteReq" + id,
                 method: 'DELETE',
                 success: function () {
                     console.log(id);
@@ -200,6 +336,8 @@ function remove(id) {
         }
     })
 }
+let Request = [];
+
 function fillTable() {
     //dibikin list
     let requested = []

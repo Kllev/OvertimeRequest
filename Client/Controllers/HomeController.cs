@@ -29,6 +29,7 @@ namespace Client.Controllers
                 ViewBag.firstName = HttpContext.Session.GetString("FirstName");
                 ViewBag.salary = HttpContext.Session.GetInt32("Salary");
                 ViewBag.manager = HttpContext.Session.GetString("Manager");
+                ViewBag.email = HttpContext.Session.GetString("Email");
                 return View();
             }
             //jika belom login
