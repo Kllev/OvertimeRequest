@@ -115,18 +115,6 @@ $(document).ready(function () {
             }
         ]
     });
-    $('#checkBoxAll').click(function () {
-        if ($(this).is(":checked")) {
-            $(".chkCheckBoxId").prop("checked", true)
-        }
-        else {
-            $(".chkCheckBoxId").prop("checked", false)
-        }
-    });
-    $('#DataTable').DataTable({
-
-    });
-
 });
 
 $(document).ready(function () {
@@ -177,9 +165,7 @@ $(document).ready(function () {
                 "orderable": false
             },
             { "data": "id", "autoWidth": true },
-            { "data": "statusName", "autoWidth": true },
             { "data": "fullName", "autoWidth": true },
-            { "data": "approverName", "autoWidth": true },
             {
                 "data": null,
                 "orderable": false,
@@ -189,21 +175,27 @@ $(document).ready(function () {
                 },
                 "autoWidth": true
             },
-            { "data": "salaryOvertime", "autoWidth": true }
+            { "data": "salaryOvertime", "autoWidth": true },
+            {
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+                    if (row["statusName"] == 0) {
+                        return `
+                    <span class="badge badge-success">Accepted</span>`;
+
+                    } if (row["statusName"] == 1) {
+                        return `
+                    <span class="badge badge-danger">Decline</span>`;
+                    } if (row["statusName"] == 2) {
+                        return `
+                    <span class="badge badge-primary">Proccess</span>`;
+                    }
+                },
+                "autoWidth": true
+            }
         ]
     });
-    $('#checkBoxAll').click(function () {
-        if ($(this).is(":checked")) {
-            $(".chkCheckBoxId").prop("checked", true)
-        }
-        else {
-            $(".chkCheckBoxId").prop("checked", false)
-        }
-    });
-    $('#DataTable').DataTable({
-
-    });
-
 });
 $(document).ready(function () {
     $('#tableApprover').DataTable({
@@ -280,18 +272,6 @@ $(document).ready(function () {
             }
         ]
     });
-    $('#checkBoxAll').click(function () {
-        if ($(this).is(":checked")) {
-            $(".chkCheckBoxId").prop("checked", true)
-        }
-        else {
-            $(".chkCheckBoxId").prop("checked", false)
-        }
-    });
-    $('#DataTable').DataTable({
-
-    });
-
 });
 
 $(document).ready(function () {
@@ -322,7 +302,6 @@ $("#btnapprove").click(function (event) {
     event.preventDefault();
     var obj = new Object();
     obj.id = parseInt(sessionStorage.getItem("RequestId"));
-    obj.email = email;
     console.log(obj);
     $.ajax({ 
         url: `Request/Approve/`,
@@ -350,7 +329,6 @@ $("#btndecline").click(function (event) {
     event.preventDefault();
     var obj = new Object();
     obj.id = parseInt(sessionStorage.getItem("RequestId"));
-    obj.email = email;
     console.log(obj);
     $.ajax({
         url: `Request/Decline/`,
@@ -390,7 +368,7 @@ function remove(id) {
             //console.log(nik);
             //val.remove();
             $.ajax({
-                url: "Request/DeleteReq" + id,
+                url: "Request/DeleteReq/" + id,
                 method: 'DELETE',
                 success: function () {
                     console.log(id);
@@ -433,7 +411,7 @@ function fillTable() {
     //di foreach
     var rowHtml = "";
     requested.forEach(function (req) {
-        rowHtml += '<tr></tr><td></td><td>' + req.UserId + '</td><td>' + req.JobTask + '</td><td>' + req.Date + '</td><td>' + req.StartTime + ":00" + '</td><td>' + req.EndTime + ":00" + '</td><td>' + req.Description + '</td>';
+        rowHtml += '<tr></tr><td>' + req.UserId + '</td><td>' + req.JobTask + '</td><td>' + req.Date + '</td><td>' + req.StartTime + ":00" + '</td><td>' + req.EndTime + ":00" + '</td><td>' + req.Description + '</td><td><button id="deletebtn" type="submit" onclick="deleteRow(this)" value="Delete"class="btn btn-sm btn-danger rounded-0" >Delete</button >';
         let objReq = {
             "UserId": req.UserId,
             "JobTask": req.JobTask,
@@ -446,7 +424,10 @@ function fillTable() {
     //tampilkan
     $('#myTable tbody').append(rowHtml);
 }
-
+function deleteRow(r) {
+    var i = r.parentNode.parentNode.rowIndex;
+    document.getElementById("myTable").deleteRow(i);
+}
 $("#btnSendReq").click(function (event) {
     event.preventDefault();
     let sum = 0;
@@ -483,22 +464,4 @@ $("#btnSendReq").click(function (event) {
             confirmButtonText: 'Back'
         })
     });
-})
-
-
-$(document).ready(function () {
-    $('#DataTable').DataTable();
-    $('#checkBoxAll').click(function () {
-        if ($(this).is(":checked")) {
-            $(".chkCheckBoxId").prop("checked", true)
-        }
-        else {
-            $(".chkCheckBoxId").prop("checked", false)
-        }
-    });
-});
-
-$("#deletebtn").click(function (event) {
-    event.preventDefault();
-    var row = table.row(this.closest('tr')).data();
 })

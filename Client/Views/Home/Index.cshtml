@@ -2,9 +2,9 @@
     Layout = "~/Views/Shared/Template/_Layout.cshtml";
 }
 @*<script>
-    var salary = '@ViewBag.salary';
-    var manager = '@ViewBag.manager';
-</script>*@
+        var salary = '@ViewBag.salary';
+        var manager = '@ViewBag.manager';
+    </script>*@
 
 <div id="request" class="section">
     <div class="section-center">
@@ -105,15 +105,13 @@
                                 <table class="table myaccordion table-hover" id="myTable">
                                     <thead>
                                         <tr>
-                                            <th>
-                                                <input type="checkbox" id="checkBoxAll" class="custom-checkbox" />
-                                            </th>
                                             <th>UserId</th>
                                             <th>JobTask</th>
                                             <th>Date Overtime</th>
                                             <th>StartTime</th>
                                             <th>EndTime</th>
                                             <th>Desc</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -122,10 +120,10 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <button id="deletebtn" type="submit" value="Delete"
+                            @*<button id="deletebtn" type="submit" onclick="deleteRow()" value="Delete"
                                     class="btn btn-sm btn-danger rounded-0">
                                 Delete
-                            </button>
+                            </button>*@
                             <button id="btnSendReq" type="button"
                                     class="btn btn-sm btn-primary rounded-0">
                                 Send Request
@@ -139,5 +137,4 @@
 </div>
 @section Scripts{
     <script src="~/js/UserRequest.js"></script>
-
 }
