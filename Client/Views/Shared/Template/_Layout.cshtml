@@ -52,6 +52,12 @@
                                 <span class="nav-link-text">Request</span>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Status" asp-action="Index">
+                                <i class="ni ni-shop text-primary"></i>
+                                <span class="nav-link-text">Status</span>
+                            </a>
+                        </li>
                         @if (User.IsInRole("Approver Management"))
                         {
                             <li class="nav-item">

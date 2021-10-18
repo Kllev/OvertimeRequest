@@ -49,6 +49,27 @@ namespace Overtime.Repository.Data
             }
             return getData.ToList();
         }
+
+        public IEnumerable<GetReqRequesterVM> GetReqByReqId(string id)
+        {
+            var getData = (from u in myContext.Users
+                           join ur in myContext.UserRequests on u.Id equals ur.UserId
+                           join r in myContext.Requests on ur.RequestId equals r.Id
+                           where u.Id == id
+                           select new GetReqRequesterVM
+                           {   
+                               id = u.Id,
+                               SalaryOvertime = r.SalaryOvertime,
+                               StatusName = (GetReqRequesterVM.Status)r.StatusName,
+                               RequestDate = r.RequestDate,
+                               fullName = u.FirstName + " " + u.LastName
+                           }).ToList();
+            if (getData.Count == 0)
+            {
+                return null;
+            }
+            return getData.ToList();
+        }
         public IEnumerable<ApproverListVM> GetAllApprove()
         {
 

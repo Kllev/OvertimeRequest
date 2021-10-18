@@ -82,6 +82,20 @@ namespace Overtime.Controllers
             }
         }
 
+        [HttpGet("GetRequest/{id}")]
+        public ActionResult GetReqRequester(string id)
+        {
+            var getRegister = requestrepository.GetReqByReqId(id);
+            if (getRegister == null)
+            {
+                return NotFound(getRegister);
+            }
+            else
+            {
+                return Ok(getRegister);
+            }
+
+        }
         [HttpGet("GetAllApproved")]
         public ActionResult AllApproved()
         {
