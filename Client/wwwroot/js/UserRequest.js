@@ -127,6 +127,83 @@ $(document).ready(function () {
     });
 
 });
+
+$(document).ready(function () {
+    console.log(userId);
+    $('#tableStatus').DataTable({
+        "filter": true,
+        "ajax": {
+            /* "url": 'https://localhost:44330/api/requests/GetReq/' + managerId,*/
+            "url": 'https://localhost:44330/Api/Requests/GetReqUserById' + userId,
+            "datatype": "json",
+            "dataSrc": ""
+        },
+        "dom": 'Bfrtip',
+        "buttons": [
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                },
+                className: 'btn btn-sm btn-outline-secondary',
+                bom: true
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+
+                },
+                className: 'btn btn-sm btn-outline-secondary',
+                bom: true
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                },
+                className: 'btn btn-sm btn-outline-secondary',
+                bom: true
+            },
+        ],
+        "columns": [
+            {
+                "data": null,
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                },
+                /*"autoWidth": true,*/
+                "orderable": false
+            },
+            { "data": "id", "autoWidth": true },
+            { "data": "statusName", "autoWidth": true },
+            { "data": "fullName", "autoWidth": true },
+            { "data": "approverName", "autoWidth": true },
+            {
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+
+                    return row["requestDate"].slice(0, 10);
+                },
+                "autoWidth": true
+            },
+            { "data": "salaryOvertime", "autoWidth": true }
+        ]
+    });
+    $('#checkBoxAll').click(function () {
+        if ($(this).is(":checked")) {
+            $(".chkCheckBoxId").prop("checked", true)
+        }
+        else {
+            $(".chkCheckBoxId").prop("checked", false)
+        }
+    });
+    $('#DataTable').DataTable({
+
+    });
+
+});
 $(document).ready(function () {
     //menambahkan data dari form ke tabel html
     $('#tableApprover').DataTable({

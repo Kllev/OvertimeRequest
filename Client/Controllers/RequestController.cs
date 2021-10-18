@@ -23,6 +23,11 @@ namespace Client.Controllers
             return View();
         }
 
+        public IActionResult Status()
+        {
+            return View();
+        }
+
         [HttpPut]
         public JsonResult Approve(UpdateStatusVM updateStatusVM )
         {
@@ -39,6 +44,7 @@ namespace Client.Controllers
             //                  + otp + "<b><br><br>Thanks<br>netcore-api.com");
             return Json(result);
         }
+
         [HttpDelete]
         public JsonResult DeleteReq(int id)
         {

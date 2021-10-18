@@ -1,4 +1,5 @@
 ﻿using Client.Models;
+using Client.Repositories.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ namespace Client.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly RequestRepository requestRepository;
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -36,7 +38,7 @@ namespace Client.Controllers
             return RedirectToAction("Index", "Login");
         }
 
-        public IActionResult Privacy()
+        public IActionResult Status()
         {
             return View();
         }
