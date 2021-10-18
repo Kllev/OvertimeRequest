@@ -134,7 +134,7 @@ $(document).ready(function () {
         "filter": true,
         "ajax": {
             /* "url": 'https://localhost:44330/api/requests/GetReq/' + managerId,*/
-            "url": 'https://localhost:44330/Api/Requests/GetReqUserById' + userId,
+            "url": 'https://localhost:44330/api/requests/GetRequest/' + userId,
             "datatype": "json",
             "dataSrc": ""
         },

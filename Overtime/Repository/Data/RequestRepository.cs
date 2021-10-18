@@ -63,7 +63,7 @@ namespace Overtime.Repository.Data
                                SalaryOvertime = r.SalaryOvertime,
                                StatusName = (GetReqRequesterVM.Status)r.StatusName,
                                RequestDate = r.RequestDate,
-                               fullName = u.FirstName + u.LastName
+                               fullName = u.FirstName + " " + u.LastName
                            }).ToList();
             if (getData.Count == 0)
             {
