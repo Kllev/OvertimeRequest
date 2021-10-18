@@ -20,14 +20,18 @@ namespace Client.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.userId = HttpContext.Session.GetString("UserId");
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.userId = HttpContext.Session.GetString("UserId");
+                return View();
+            }
+            return RedirectToAction("Index", "Login");
         }
 
         [HttpGet("GetReqUserById/{ID}")]
-        public async Task<JsonResult> GetById(string id)
+        public async Task<JsonResult> GetById(string userId)
         {
-            var result = await statusRepository.GetById(id);
+            var result = await statusRepository.GetById(userId);
             return Json(result);
         }
     }

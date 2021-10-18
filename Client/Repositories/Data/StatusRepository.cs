@@ -1,6 +1,7 @@
 ﻿using Client.Base.Urls;
 using Newtonsoft.Json;
 using Overtime.Models;
+using Overtime.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,14 +25,14 @@ namespace Client.Repositories.Data
             };
         }
 
-        public async Task<Request> GetById(string id)
+        public async Task<GetReqRequesterVM> GetById(string userId)
         {
-            Request entity = new Request();
+            GetReqRequesterVM entity = new GetReqRequesterVM();
 
-            using (var response = await httpClient.GetAsync(request + "GetRequest/" + id))
+            using (var response = await httpClient.GetAsync(request + "GetRequest/" + userId))
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                entity = JsonConvert.DeserializeObject<Request>(apiResponse);
+                entity = JsonConvert.DeserializeObject<GetReqRequesterVM>(apiResponse);
             }
             return entity;
         }
