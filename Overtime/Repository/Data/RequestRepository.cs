@@ -29,7 +29,6 @@ namespace Overtime.Repository.Data
             myContext.Requests.Update(data);
             return myContext.SaveChanges();
         }
-
         public IEnumerable<ListGetReqByManagerVM> GetReqByManagerId(string id)
         {
             var getData = (from u in myContext.Users
@@ -38,11 +37,11 @@ namespace Overtime.Repository.Data
                            where u.ManagerID == id
                            select new ListGetReqByManagerVM
                            {
-                               Id =r.Id,
-                               StatusName= (ListGetReqByManagerVM.Status)r.StatusName,
-                               RequestDate= r.RequestDate,
+                               Id = r.Id,
+                               StatusName = (ListGetReqByManagerVM.Status)r.StatusName,
+                               RequestDate = r.RequestDate,
                                EmployeeId = u.Id,
-                               EmpployeeName = u.FirstName+u.LastName
+                               EmployeeName = u.FirstName +" "+u.LastName,
                            }).ToList();
             if (getData.Count == 0)
             {

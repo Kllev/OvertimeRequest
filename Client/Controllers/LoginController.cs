@@ -43,7 +43,7 @@ namespace Client.Controllers
             }
 
             HttpContext.Session.SetString("JWToken", token);
-            HttpContext.Session.SetString("Email", loginVM.Email);
+            HttpContext.Session.SetString("Email", email);
             HttpContext.Session.SetString("UserId", employeeId);
             HttpContext.Session.SetInt32("Salary", salary);
             HttpContext.Session.SetString("Manager", manager);

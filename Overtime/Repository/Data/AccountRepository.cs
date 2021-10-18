@@ -114,11 +114,6 @@ namespace Overtime.Repository.Data
             var checkName = myContext.Users.Where(p => p.Email == email).FirstOrDefault();
             return checkName.Salary;
         }
-        public string GetManagerId(string email)
-        {
-            var checkName = myContext.Users.Where(p => p.Email == email).FirstOrDefault();
-            return checkName.ManagerID;
-        }
         public string GetManager(string email)
         {
             var getname = (from p in myContext.Users

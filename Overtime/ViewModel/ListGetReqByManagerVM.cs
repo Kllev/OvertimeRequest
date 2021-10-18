@@ -8,7 +8,7 @@ namespace Overtime.ViewModel
     public class ListGetReqByManagerVM
     {
         public int Id { get; set; }
-        public string EmpployeeName { get; set; }
+        public string EmployeeName { get; set; }
         public string EmployeeId { get; set; }
         public enum Status
         {
@@ -18,5 +18,6 @@ namespace Overtime.ViewModel
         }
         public Status StatusName { get; set; }
         public DateTime RequestDate { get; set; }
+        public int SalaryOvertime { get; set; }
     }
 }
