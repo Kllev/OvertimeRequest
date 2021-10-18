@@ -45,6 +45,7 @@ namespace Client
             services.AddScoped<ForgotPasswordRepository>();
             services.AddScoped<ApproverRepository>();
             services.AddScoped<RequestRepository>();
+            services.AddScoped<StatusRepository>();
 
             services.AddScoped<Address>();
 

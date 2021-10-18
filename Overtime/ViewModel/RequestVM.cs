@@ -15,6 +15,7 @@ namespace Overtime.ViewModel
         //public string UserID { get; set; }
         [Required(ErrorMessage = "Salary is required")]
         public int Salary { get; set; }
+        public string Email { get; set; }
         //[Required(ErrorMessage = "Jobtask is required")]
         //public string JobTask { get; set; }
         ////[Required(ErrorMessage = "Description is required")]
