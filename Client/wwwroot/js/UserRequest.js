@@ -96,7 +96,19 @@ $(document).ready(function () {
                 },
                 "autoWidth": true
             },
-            { "data": "statusName", "autoWidth": true },
+            {
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+                    if (row["statusName"] == 0) {
+                        return `Accepted`;
+                    } if (row["statusName"] == 1) {
+                        return `Decline`;
+                    } if (row["statusName"] == 2) {
+                        return `Proccess`;
+                    }
+                }
+            },
             {
                 "render": function (data, type, row) {
                     sessionStorage.setItem("RequestId", row["id"])
@@ -243,7 +255,23 @@ $(document).ready(function () {
                 "orderable": false
             },
             { "data": "id", "autoWidth": true },
-            { "data": "statusName", "autoWidth": true },
+            {
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+                    if (row["statusName"] == 0) {
+                        return `
+                    <span class="badge badge-success">Accepted</span>`;
+
+                    } if (row["statusName"] == 1) {
+                        return `
+                    <span class="badge badge-danger">Decline</span>`;
+                    } if (row["statusName"] == 2) {
+                        return `
+                    <span class="badge badge-primary">Proccess</span>`;
+                    }
+                },
+            },
             {
                 "data": null,
                 "orderable": false,
