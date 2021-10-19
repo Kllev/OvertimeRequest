@@ -106,6 +106,8 @@ $(document).ready(function () {
                         return `Decline`;
                     } if (row["statusName"] == 2) {
                         return `Proccess`;
+                    } if (row["statusName"] == 3) {
+                        return `Proccess`;
                     }
                 }
             },
@@ -200,6 +202,9 @@ $(document).ready(function () {
                         return `
                     <span class="badge badge-danger">Decline</span>`;
                     } if (row["statusName"] == 2) {
+                        return `
+                    <span class="badge badge-primary">Proccess</span>`;
+                    } if (row["statusName"] == 3) {
                         return `
                     <span class="badge badge-primary">Proccess</span>`;
                     }

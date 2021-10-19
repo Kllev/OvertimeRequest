@@ -10,7 +10,7 @@ namespace Overtime.ViewModel
 {
     public class GetReqRequesterVM
     {
-        public string id { get; set; }
+        public int id { get; set; }
         public string fullName { get; set; }
         public enum Status
         {

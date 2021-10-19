@@ -67,7 +67,7 @@ namespace Overtime.Repository.Data
                            where u.Id == id
                            select new GetReqRequesterVM
                            {   
-                               id = u.Id,
+                               id = r.Id,
                                SalaryOvertime = r.SalaryOvertime,
                                StatusName = (GetReqRequesterVM.Status)r.StatusName,
                                RequestDate = r.RequestDate,
