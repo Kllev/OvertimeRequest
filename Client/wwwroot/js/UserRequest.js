@@ -325,6 +325,33 @@ $("#btnapprove").click(function (event) {
     });
 })
 
+$("#btnprocess").click(function (event) {
+    event.preventDefault();
+    var obj = new Object();
+    obj.id = parseInt(sessionStorage.getItem("RequestId"));
+    console.log(obj);
+    $.ajax({
+        url: `Request/Process/`,
+        type: "PUT",
+        dataType: 'json',
+        contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+        data: obj
+    }).done((result) => {
+        Swal.fire({
+            title: 'Success!',
+            text: 'You Have Been Submited',
+            icon: 'success',
+        });
+    }).fail((error) => {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Failed To Submit',
+            icon: 'error',
+            confirmButtonText: 'Back'
+        })
+    });
+})
+
 $("#btndecline").click(function (event) {
     event.preventDefault();
     var obj = new Object();
@@ -438,7 +465,7 @@ $("#btnSendReq").click(function (event) {
     Request.forEach
     obj.ApproverName = $('#manager').val();
     obj.Salary = parseInt($('#salary').val());
-    obj.StatusName = 2;
+    obj.StatusName = 3;
     obj.Time = sum;
     obj.userRequests = Request;
     console.log(obj);

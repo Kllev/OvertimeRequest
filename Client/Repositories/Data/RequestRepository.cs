@@ -34,6 +34,13 @@ namespace Client.Repositories.Data
             return result.StatusCode;
         }
 
+        public HttpStatusCode Process(UpdateStatusVM updateStatusVM)
+        {
+            StringContent content = new StringContent(JsonConvert.SerializeObject(updateStatusVM), Encoding.UTF8, "application/json");
+            var result = httpClient.PutAsync(request + "Process", content).Result;
+            return result.StatusCode;
+        }
+
         public HttpStatusCode Decline(UpdateStatusVM updateStatusVM)
         {
             StringContent content = new StringContent(JsonConvert.SerializeObject(updateStatusVM), Encoding.UTF8, "application/json");

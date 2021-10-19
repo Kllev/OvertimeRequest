@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Overtime.ViewModel
@@ -13,9 +16,12 @@ namespace Overtime.ViewModel
         {
             Accepted,
             Decline,
-            Proccess
+            Proccess,
+            Proccessed
         }
-        public Status StatusName { get; set; }
+        [Range(0, 3)]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Status ? StatusName { get; set; }
         public DateTime RequestDate { get; set; }
         public string ApproverName { get; set; }
         //[Column(TypeName = "double(18,2)")]

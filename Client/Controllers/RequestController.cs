@@ -36,6 +36,13 @@ namespace Client.Controllers
         }
 
         [HttpPut]
+        public JsonResult Process(UpdateStatusVM updateStatusVM)
+        {
+            var result = requestRepository.Process(updateStatusVM);
+            return Json(result);
+        }
+
+        [HttpPut]
         public JsonResult Decline(UpdateStatusVM updateStatusVM)
         {
             var result = requestRepository.Decline(updateStatusVM);
