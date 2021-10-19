@@ -209,6 +209,100 @@ $(document).ready(function () {
         ]
     });
 });
+
+$(document).ready(function () {
+    $('#tableHistory').DataTable({
+        "filter": true,
+        "ajax": {
+            "url": 'https://localhost:44330/api/Requests/GetAllHistory',
+            "datatype": "json",
+            "dataSrc": ""
+        },
+        "dom": 'Bfrtip',
+        "buttons": [
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                },
+                className: 'btn btn-sm btn-outline-secondary',
+                bom: true
+            },
+            {
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+
+                },
+                className: 'btn btn-sm btn-outline-secondary',
+                bom: true
+            },
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: [1, 2, 3, 4, 5]
+                },
+                className: 'btn btn-sm btn-outline-secondary',
+                bom: true
+            },
+        ],
+        "columns": [
+            {
+                "data": null,
+                render: function (data, type, row, meta) {
+                    return meta.row + meta.settings._iDisplayStart + 1;
+                },
+                /*"autoWidth": true,*/
+                "orderable": false
+            },
+            { "data": "id", "autoWidth": true },
+            {
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+                    if (row["statusName"] == 0) {
+                        return `
+                    <span class="badge badge-success">Accepted</span>`;
+
+                    } if (row["statusName"] == 1) {
+                        return `
+                    <span class="badge badge-danger">Decline</span>`;
+                    } if (row["statusName"] == 2) {
+                        return `
+                    <span class="badge badge-primary">Proccess</span>`;
+                    }
+                },
+            },
+            {
+                "data": null,
+                "orderable": false,
+                "render": function (data, type, row) {
+
+                    return row["requestDate"].slice(0, 10);
+                },
+                "autoWidth": true
+            },
+            { "data": "salaryOvertime", "autoWidth": true },
+            {
+                "render": function (data, type, row) {
+                    sessionStorage.setItem("RequestId", row["id"])
+                    return `<button type="button"
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#exampleModal"
+                        onclick="detail('${row["id"]}')">Detail</button></td>
+                        <button type="button"
+                        class="btn btn-danger"
+                        onclick="remove('${row["id"]}')">Delete</button></td>
+                        `;
+                },
+                "autoWidth": true,
+                "orderable": false
+            }
+        ]
+    });
+});
+
 $(document).ready(function () {
     $('#tableApprover').DataTable({
         "filter": true,
