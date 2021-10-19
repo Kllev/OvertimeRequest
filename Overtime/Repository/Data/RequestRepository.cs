@@ -22,6 +22,15 @@ namespace Overtime.Repository.Data
             myContext.Requests.Update(data);
             return myContext.SaveChanges();
         }
+
+        public int Process(UpdateStatusVM updateStatusVM)
+        {
+            var data = myContext.Requests.Where(x => x.Id.Equals(updateStatusVM.Id)).FirstOrDefault();
+            data.StatusName = (Request.Status)2;
+            myContext.Requests.Update(data);
+            return myContext.SaveChanges();
+        }
+
         public int Decline(UpdateStatusVM updateStatusVM)
         {
             var data = myContext.Requests.Where(x => x.Id.Equals(updateStatusVM.Id)).FirstOrDefault();
@@ -47,7 +56,7 @@ namespace Overtime.Repository.Data
             {
                 return null;
             }
-            return getData.ToList();
+            return getData.ToList().Where(r => r.StatusName == (ListGetReqByManagerVM.Status)3);
         }
 
         public IEnumerable<GetReqRequesterVM> GetReqByReqId(string id)
@@ -70,7 +79,22 @@ namespace Overtime.Repository.Data
             }
             return getData.ToList();
         }
-        public IEnumerable<ApproverListVM> GetAllApprove()
+        public IEnumerable<ApproverListVM> GetAllHistory()
+        {
+
+            var all = (from p in myContext.Requests
+                       select new ApproverListVM
+                       {
+                           Id = p.Id,
+                           StatusName = (ApproverListVM.Status)p.StatusName,
+                           RequestDate = p.RequestDate,
+                           ApproverName = p.ApproverName,
+                           SalaryOvertime = p.SalaryOvertime
+                       }).ToList();
+            return all.Where(p => p.StatusName == (ApproverListVM.Status)0 && p.StatusName == (ApproverListVM.Status)1);
+        }
+
+        public IEnumerable<ApproverListVM> GetAllApproved()
         {
 
             var all = (from p in myContext.Requests

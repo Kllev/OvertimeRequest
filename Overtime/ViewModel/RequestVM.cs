@@ -31,7 +31,8 @@ namespace Overtime.ViewModel
         {
             Accepted,
             Decline,
-            Proccess
+            Proccess,
+            Proccessed
         }
         [JsonConverter(typeof(StringEnumConverter))]
         public status StatusName { get; set; }

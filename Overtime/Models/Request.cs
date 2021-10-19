@@ -18,9 +18,10 @@ namespace Overtime.Models
         {
             Accepted,
             Decline,
-            Proccess
+            Proccess,
+            Proccessed
         }
-        public Status StatusName { get; set; }
+        public Status? StatusName { get; set; }
         public DateTime RequestDate { get; set; }
         public string ApproverName { get; set; }
         //[Column(TypeName = "double(18,2)")]

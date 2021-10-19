@@ -46,6 +46,29 @@ namespace Overtime.Controllers
             }
         }
 
+        [HttpPut("Process")]
+        public ActionResult Process(UpdateStatusVM updateStatusVM)
+        {
+            try
+            {
+                string GetDate = DateTime.Now.ToString();
+                string SubjectMail = $"Update Request Status - {GetDate}";
+                var get = requestrepository.Process(updateStatusVM);
+                EmailSender.SendEmail(updateStatusVM.Email, SubjectMail, "Hello "
+                                  + updateStatusVM.Email + "<br><br>Kami informasikan bahwa Status Request Overtime anda sudah di approve <br><br><b>" +
+                                   "<b><br><br>Thanks<br>OvertimeRequestTeam");
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new
+                {
+                    status = HttpStatusCode.BadRequest,
+                    Message = e
+                });
+            }
+        }
+
         [HttpPut("Decline")]
         public ActionResult Decline(UpdateStatusVM updateStatusVM)
         {
@@ -100,7 +123,21 @@ namespace Overtime.Controllers
         public ActionResult AllApproved()
         {
 
-            var get = requestrepository.GetAllApprove();
+            var get = requestrepository.GetAllApproved();
+            if (get != null)
+            {
+                return Ok(get);
+            }
+
+            return NotFound("Tidak ada Data");
+
+        }
+
+        [HttpGet("GetAllHistory")]
+        public ActionResult AllHistory()
+        {
+
+            var get = requestrepository.GetAllHistory();
             if (get != null)
             {
                 return Ok(get);

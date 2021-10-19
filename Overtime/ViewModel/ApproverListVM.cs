@@ -12,7 +12,8 @@ namespace Overtime.ViewModel
         {
             Accepted,
             Decline,
-            Proccess
+            Proccess,
+            Proccessed
         }
         public Status StatusName { get; set; }
         public DateTime RequestDate { get; set; }
