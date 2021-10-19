@@ -470,26 +470,36 @@ $("#btnSendReq").click(function (event) {
     obj.Time = sum;
     obj.userRequests = Request;
     console.log(obj);
-
-    $.ajax({
-        url: "https://localhost:44330/api/UserRequests/InsertUserReq",
-        /*url: "/Register/RegisterData",*/
-        type: "POST",
-        dataType: 'json',
-        contentType: 'application/json',
-        data: JSON.stringify(obj)
-    }).done((result) => {
-        Swal.fire({
-            title: 'Success!',
-            text: 'You Have Been Submited',
-            icon: 'success',
+    if (obj.Time <= 3) {
+        $.ajax({
+            url: "https://localhost:44330/api/UserRequests/InsertUserReq",
+            /*url: "/Register/RegisterData",*/
+            type: "POST",
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(obj)
+        }).done((result) => {
+            Swal.fire({
+                title: 'Success!',
+                text: 'You Have Been Submited',
+                icon: 'success',
+            });
+        }).fail((result) => {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Failed To Submit',
+                icon: 'error',
+                confirmButtonText: 'Back'
+            })
         });
-    }).fail((result) => {
+    }
+    else {
         Swal.fire({
             title: 'Error!',
-            text: 'Failed To Submit',
+            text: 'Maaf anda sudah melebih batas lembur harian',
             icon: 'error',
             confirmButtonText: 'Back'
         })
-    });
+    }
+    
 })
