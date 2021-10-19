@@ -46,6 +46,7 @@ namespace Client
             services.AddScoped<ApproverRepository>();
             services.AddScoped<RequestRepository>();
             services.AddScoped<StatusRepository>();
+            services.AddScoped<HistoryRepository>();
 
             services.AddScoped<Address>();
 

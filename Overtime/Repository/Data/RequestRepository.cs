@@ -91,7 +91,7 @@ namespace Overtime.Repository.Data
                            ApproverName = p.ApproverName,
                            SalaryOvertime = p.SalaryOvertime
                        }).ToList();
-            return all.Where(p => p.StatusName == (ApproverListVM.Status)0 && p.StatusName == (ApproverListVM.Status)1);
+            return all.Where(ur => ur.StatusName == (ApproverListVM.Status)0 || ur.StatusName == (ApproverListVM.Status)1);
         }
 
         public IEnumerable<ApproverListVM> GetAllApproved()
